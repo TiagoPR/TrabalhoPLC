@@ -1,6 +1,6 @@
 import re
 
-        
+
 f = open("processos.txt", "r")
 
 parentesco = {}
