@@ -16,10 +16,11 @@ for linha in f:
             else:
                 parentesco[pare[0]] += 1
 
-frase = input("Qual o parentesco? ")
+print(parentesco)
+frase = input("Qual o parentesco: ")
 while frase != "":
     if frase in parentesco:
         print("Parentesco: ",frase, "Resultado: ",parentesco[frase])
     else:
         print("Não existe parentesco")
-    frase = input("Qual o parentesco?")
+    frase = input("Qual o parentesco: ")

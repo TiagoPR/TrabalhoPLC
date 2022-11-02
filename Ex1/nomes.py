@@ -59,9 +59,11 @@ while frase != "":
     nome = input("Qual o nome? ")
     apelido = input("Qual o apelido? ")
     if seculo in dic_nome and int(frase) in dic_apelido:
-        print("Seculo certo!!!")
+        #print("Seculo certo!!!")
         if nome in dic_nome[seculo] and apelido in dic_apelido[seculo]:
             print("Seculo: ",seculo, "Nome: ",dic_nome[seculo][nome], "Apelido: ",dic_apelido[seculo][apelido])
+        else:
+            print("Não existe nome ou apelido neste século")
     else:
         print("Não existe processo")
-    frase = input("Qual o seculo?")
+    frase = input("Qual o seculo? ")
