@@ -9,7 +9,7 @@ def p_bool_true(p):
 def p_bool_false(p):
     "bool : FALSE"
     p[0] = f'0'
-    
+
 def p_cond_bool(p):
     "cond : bool"
     p[0] = f'pushi{p[1]}\npushi 0\n sup\n'
@@ -61,12 +61,17 @@ def p_corpoescreve_null(p):
     p[0] = f' '
 
 def p_alter_frase(p):
-    "alter : frase"
+    "alter : FRASE"
     p[0] = p[1:-1]
 
 def p_alter_frase(p):
     "alter : expr"
     p[0] = f'p{1}'
 
+
+def p_ciclo(p):
+    "while : WHILE Cond DO Corpo "
+    p[0] = f'l{p.parser.labels}c: NOP\n{p[2]}JZ l{p.parser.labels}f\n{p[4]}JUMP l{p.parser.labels}c\nl{p.parser.labels}f: NOP\n'
+    p.parser.labels += 1
 
 
