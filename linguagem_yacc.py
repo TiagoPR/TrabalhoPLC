@@ -134,9 +134,64 @@ def p_Linha_Ciclo(p):
 def p_error(p):
     print('Syntax error!')
     parser.sucesso = False
-    
+
+#---------------------------------------------------- Tales
+
+def p_se(p):
+    "se : If cond Then Cod Else Cod"
+    p[0] = f"PUSHI{p[2]} JZ p1{p.parser.labels}\n {p[3]} JUMP fim{p.parser.labels}\n p1{p.parser.labels}\n {p[5]} fim{p.parser.labels}"
+    p.parser.labels += 1
+
+def p_var_tipoID(p):
+    "var : Tipo ID ."
+    var = p[2]
+    p.parser.table[var] = p[2]
+    p[0] = "PUSHI 0"
+
+def p_var_expr(p):
+    "var : Tipo ID = expr ."
+    var = p[2]
+    p.parser.table[var] = p[4]
+
+def p_expr_add(p):
+    "expr : expr '+' termo"
+    p[0] = p[1] + p[3] + "ADD\n"
+
+def p_expr_sub(p):
+    "expr : expr '-' termo"
+    p[0] = p[1] + p[3] + "SUB\n"
+
+def p_expr_termo(p):
+    "expr : termo"
+    p[0] = p[1]
+
+def p_termo_mul(p):
+    "termo : termo '*' fator"
+    p[0] = p[1] + p[3] + "MUL\n"
+
+def p_termo_div(p):
+    "termo : termo '/' fator"
+    p[0] = p[1] + p[3] + "DIV\n"
+
+def fator_NUM(p):
+    "fator : NUM"
+    p[0] = f"PUSHI {p[1]}"
+
+def fator_ID(p):
+    "fator : ID"
+    p[0] = p.parser.table[p[1]]
+
+def fator_func(p):
+    "fator : func"
+    p[0] = p[1]
+
+def fator_expr(p):
+    "fator : '(' expr ')'"
+    p[0] = p[2]
+
 #inicio do Parser e do Processamento
 parser = yacc.yacc()
+parser.table = {}
 
 parser.sucesso = True
 parser.assembly = ""
