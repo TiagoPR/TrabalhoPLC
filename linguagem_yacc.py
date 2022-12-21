@@ -8,6 +8,7 @@ def p_Programa(p):
 
 def p_Vars_Empty(p):
     "Vars : "
+    p[0] = f' '
 
 def p_Vars_Var(p):
     "Vars : Vars Var"
@@ -15,20 +16,23 @@ def p_Vars_Var(p):
 
 def p_Funcs_Empty(p):
     "Funcs : "
+    p[0] = f' '
 
 def p_Funcs_Func(p):
     "Funcs : Funcs Func"
     p[0] = f'{p[1]}{p[2]}'
 
 def p_Func(p):
-    "Func : PAL begin COD return Expr end"
-    p[0] = f'FUNCTION {p[1]}()'
+    "Func : PAL begin Cod return Expr end"
+    p[0] = f'{p[1]}:\n{p[2]}\nret'
 
 def p_Cod_linha(p):
     "Cod : Linha"
+    p[0] = f'{p[0]}'
 
 def p_Cod_linhas(p):
     "Cod : Linha Cod"
+    p[0] = f'{p[0]} {p[1]}'
 
 def p_Linha_Escrever(p):
     "Linha : Escrever"
@@ -59,3 +63,4 @@ parser = yacc.yacc()
 
 parser.sucesso = True
 parser.assembly = ""
+parser.labels = 0
