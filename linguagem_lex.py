@@ -8,6 +8,17 @@ import ply.lex as lex
 literals = ['+','-','*','/','=','(',')',]
 
 tokens = (
+    'TRUE',
+    'FALSE',
+    'INF',
+    'INFQE',
+    'SUP',
+    'SUPEQ',
+    'INPUT',
+    'FRASE',
+    'PRINT',
+    'TIPO',
+    'ID',
     'OU',
     'E',
     'IF',
@@ -16,9 +27,12 @@ tokens = (
     'WHILE',
     'DO',
     'NUM',
-    'PAL',
+    'FRASE',
+    
     
 )
+
+
 t_OU = r'or'
 
 t_E = r'and'
@@ -35,7 +49,7 @@ t_DO = r'do'
 
 t_NUM = r'[0-9]+'
 
-t_PAL = r'[a-zA-Z]+'
+t_PAL = r'\".*\"'
 
 
     

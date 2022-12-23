@@ -1,0 +1,114 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> bool
+Rule 1     bool -> TRUE
+Rule 2     bool -> FALSE
+Rule 3     cond -> bool
+Rule 4     cond -> expr
+Rule 5     oprelacao -> INF
+Rule 6     oprelacao -> INFEQ
+Rule 7     oprelacao -> SUP
+Rule 8     oprelacao -> SUPEQ
+Rule 9     cond -> expr oprelacao expr
+Rule 10    cond -> cond E cond
+Rule 11    cond -> cond OU cond
+Rule 12    ler -> INPUT FRASE
+Rule 13    escreva -> PRINT corpoescreve
+Rule 14    corpoescreve -> alter corpoescreve
+Rule 15    corpoescreve -> <empty>
+Rule 16    alter -> expr
+Rule 17    while -> WHILE Cond DO Corpo
+Rule 18    Programa -> Vars Funcs Cod
+Rule 19    Vars -> <empty>
+Rule 20    Vars -> Vars Var
+Rule 21    Funcs -> <empty>
+Rule 22    Funcs -> Funcs Func
+Rule 23    Func -> PAL begin Cod return Expr end
+Rule 24    Cod -> Linha
+Rule 25    Cod -> Linha Cod
+Rule 26    Linha -> Escrever
+Rule 27    Linha -> Atr
+Rule 28    Linha -> Ler
+Rule 29    Linha -> SE
+Rule 30    Linha -> Ciclo
+Rule 31    SE -> IF cond THEN Cod ELSE Cod
+Rule 32    var -> Tipo ID .
+Rule 33    var -> Tipo ID = expr .
+Rule 34    expr -> expr + termo
+Rule 35    expr -> expr - termo
+Rule 36    expr -> termo
+Rule 37    termo -> termo * fator
+Rule 38    termo -> termo / fator
+Rule 39    fator -> NUM
+Rule 40    fator -> ID
+Rule 41    fator -> func
+Rule 42    fator -> ( expr )
+
+Terminals, with rules where they appear
+
+(                    : 42
+)                    : 42
+*                    : 37
++                    : 34
+-                    : 35
+.                    : 32 33
+/                    : 38
+=                    : 33
+DO                   : 17
+E                    : 10
+ELSE                 : 31
+IF                   : 31
+NUM                  : 39
+OU                   : 11
+PAL                  : 23
+THEN                 : 31
+WHILE                : 17
+error                : 
+
+Nonterminals, with rules where they appear
+
+Atr                  : 27
+Ciclo                : 30
+Cod                  : 18 23 25 31 31
+Cond                 : 17
+Corpo                : 17
+Escrever             : 26
+Expr                 : 23
+FALSE                : 2
+FRASE                : 12
+Func                 : 22
+Funcs                : 18 22
+ID                   : 32 33 40
+INF                  : 5
+INFEQ                : 6
+INPUT                : 12
+Ler                  : 28
+Linha                : 24 25
+PRINT                : 13
+Programa             : 
+SE                   : 29
+SUP                  : 7
+SUPEQ                : 8
+TRUE                 : 1
+Tipo                 : 32 33
+Var                  : 20
+Vars                 : 18 20
+alter                : 14
+begin                : 23
+bool                 : 3 0
+cond                 : 10 10 11 11 31
+corpoescreve         : 13 14
+end                  : 23
+escreva              : 
+expr                 : 4 9 9 16 33 34 35 42
+fator                : 37 38
+func                 : 41
+ler                  : 
+oprelacao            : 9
+return               : 23
+termo                : 34 35 36 37 38
+var                  : 
+while                : 
+
