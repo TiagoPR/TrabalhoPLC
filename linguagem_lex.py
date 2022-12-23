@@ -8,9 +8,30 @@ import ply.lex as lex
 literals = ['+','-','*','/','=','(',')',]
 
 tokens = (
+    'OU',
+    'E',
+    'IF',
+    'THEN',
+    'ELSE',
+    'WHILE',
+    'DO',
     'NUM',
     'PAL',
+    
 )
+t_OU = r'or'
+
+t_E = r'and'
+
+t_IF = r'if'
+
+t_THEN = r'then'
+
+t_ELSE = r'else'
+
+t_WHILE = r'while'
+
+t_DO = r'do'
 
 t_NUM = r'[0-9]+'
 

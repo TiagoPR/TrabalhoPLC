@@ -124,7 +124,7 @@ def p_Linha_Ler(p):
     p[0] = p[1]
 
 def p_Linha_Se(p):
-    "Linha : Se"
+    "Linha : SE"
     p[0] = p[1]
 
 def p_Linha_Ciclo(p):
@@ -137,8 +137,8 @@ def p_error(p):
 
 #---------------------------------------------------- Tales
 
-def p_se(p):
-    "se : If cond Then Cod Else Cod"
+def p_SE(p):
+    "SE : IF cond THEN Cod ELSE Cod"
     p[0] = f"PUSHI{p[2]} JZ p1{p.parser.labels}\n {p[3]} JUMP fim{p.parser.labels}\n p1{p.parser.labels}\n {p[5]} fim{p.parser.labels}"
     p.parser.labels += 1
 
