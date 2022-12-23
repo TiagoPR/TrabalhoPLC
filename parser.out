@@ -1,114 +1,412 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
+Unused terminals:
+
+    DO
+    E
+    ELSE
+    FALSE
+    FRASE
+    IF
+    INF
+    INFEQ
+    INPUT
+    OU
+    PRINT
+    SUP
+    SUPEQ
+    THEN
+    TRUE
+    WHILE
+
 Grammar
 
-Rule 0     S' -> bool
-Rule 1     bool -> TRUE
-Rule 2     bool -> FALSE
-Rule 3     cond -> bool
-Rule 4     cond -> expr
-Rule 5     oprelacao -> INF
-Rule 6     oprelacao -> INFEQ
-Rule 7     oprelacao -> SUP
-Rule 8     oprelacao -> SUPEQ
-Rule 9     cond -> expr oprelacao expr
-Rule 10    cond -> cond E cond
-Rule 11    cond -> cond OU cond
-Rule 12    ler -> INPUT FRASE
-Rule 13    escreva -> PRINT corpoescreve
-Rule 14    corpoescreve -> alter corpoescreve
-Rule 15    corpoescreve -> <empty>
-Rule 16    alter -> expr
-Rule 17    while -> WHILE Cond DO Corpo
-Rule 18    Programa -> Vars Funcs Cod
-Rule 19    Vars -> <empty>
-Rule 20    Vars -> Vars Var
-Rule 21    Funcs -> <empty>
-Rule 22    Funcs -> Funcs Func
-Rule 23    Func -> PAL begin Cod return Expr end
-Rule 24    Cod -> Linha
-Rule 25    Cod -> Linha Cod
-Rule 26    Linha -> Escrever
-Rule 27    Linha -> Atr
-Rule 28    Linha -> Ler
-Rule 29    Linha -> SE
-Rule 30    Linha -> Ciclo
-Rule 31    SE -> IF cond THEN Cod ELSE Cod
-Rule 32    var -> Tipo ID .
-Rule 33    var -> Tipo ID = expr .
-Rule 34    expr -> expr + termo
-Rule 35    expr -> expr - termo
-Rule 36    expr -> termo
-Rule 37    termo -> termo * fator
-Rule 38    termo -> termo / fator
-Rule 39    fator -> NUM
-Rule 40    fator -> ID
-Rule 41    fator -> func
-Rule 42    fator -> ( expr )
+Rule 0     S' -> Programa
+Rule 1     Programa -> Vars Cod
+Rule 2     Vars -> <empty>
+Rule 3     Vars -> var Vars
+Rule 4     Cod -> <empty>
+Rule 5     var -> INT ID .
+Rule 6     var -> INT ID = expr .
+Rule 7     expr -> expr + termo
+Rule 8     expr -> expr - termo
+Rule 9     expr -> termo
+Rule 10    termo -> termo * fator
+Rule 11    termo -> termo / fator
+Rule 12    termo -> fator
+Rule 13    fator -> NUM
+Rule 14    fator -> ID
+Rule 15    fator -> ( expr )
 
 Terminals, with rules where they appear
 
-(                    : 42
-)                    : 42
-*                    : 37
-+                    : 34
--                    : 35
-.                    : 32 33
-/                    : 38
-=                    : 33
-DO                   : 17
-E                    : 10
-ELSE                 : 31
-IF                   : 31
-NUM                  : 39
-OU                   : 11
-PAL                  : 23
-THEN                 : 31
-WHILE                : 17
+(                    : 15
+)                    : 15
+*                    : 10
++                    : 7
+-                    : 8
+.                    : 5 6
+/                    : 11
+=                    : 6
+DO                   : 
+E                    : 
+ELSE                 : 
+FALSE                : 
+FRASE                : 
+ID                   : 5 6 14
+IF                   : 
+INF                  : 
+INFEQ                : 
+INPUT                : 
+INT                  : 5 6
+NUM                  : 13
+OU                   : 
+PRINT                : 
+SUP                  : 
+SUPEQ                : 
+THEN                 : 
+TRUE                 : 
+WHILE                : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-Atr                  : 27
-Ciclo                : 30
-Cod                  : 18 23 25 31 31
-Cond                 : 17
-Corpo                : 17
-Escrever             : 26
-Expr                 : 23
-FALSE                : 2
-FRASE                : 12
-Func                 : 22
-Funcs                : 18 22
-ID                   : 32 33 40
-INF                  : 5
-INFEQ                : 6
-INPUT                : 12
-Ler                  : 28
-Linha                : 24 25
-PRINT                : 13
-Programa             : 
-SE                   : 29
-SUP                  : 7
-SUPEQ                : 8
-TRUE                 : 1
-Tipo                 : 32 33
-Var                  : 20
-Vars                 : 18 20
-alter                : 14
-begin                : 23
-bool                 : 3 0
-cond                 : 10 10 11 11 31
-corpoescreve         : 13 14
-end                  : 23
-escreva              : 
-expr                 : 4 9 9 16 33 34 35 42
-fator                : 37 38
-func                 : 41
-ler                  : 
-oprelacao            : 9
-return               : 23
-termo                : 34 35 36 37 38
-var                  : 
-while                : 
+Cod                  : 1
+Programa             : 0
+Vars                 : 1 3
+expr                 : 6 7 8 15
+fator                : 10 11 12
+termo                : 7 8 9 10 11
+var                  : 3
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . Programa
+    (1) Programa -> . Vars Cod
+    (2) Vars -> .
+    (3) Vars -> . var Vars
+    (5) var -> . INT ID .
+    (6) var -> . INT ID = expr .
+
+    $end            reduce using rule 2 (Vars -> .)
+    INT             shift and go to state 4
+
+    Programa                       shift and go to state 1
+    Vars                           shift and go to state 2
+    var                            shift and go to state 3
+
+state 1
+
+    (0) S' -> Programa .
+
+
+
+state 2
+
+    (1) Programa -> Vars . Cod
+    (4) Cod -> .
+
+    $end            reduce using rule 4 (Cod -> .)
+
+    Cod                            shift and go to state 5
+
+state 3
+
+    (3) Vars -> var . Vars
+    (2) Vars -> .
+    (3) Vars -> . var Vars
+    (5) var -> . INT ID .
+    (6) var -> . INT ID = expr .
+
+    $end            reduce using rule 2 (Vars -> .)
+    INT             shift and go to state 4
+
+    var                            shift and go to state 3
+    Vars                           shift and go to state 6
+
+state 4
+
+    (5) var -> INT . ID .
+    (6) var -> INT . ID = expr .
+
+    ID              shift and go to state 7
+
+
+state 5
+
+    (1) Programa -> Vars Cod .
+
+    $end            reduce using rule 1 (Programa -> Vars Cod .)
+
+
+state 6
+
+    (3) Vars -> var Vars .
+
+    $end            reduce using rule 3 (Vars -> var Vars .)
+
+
+state 7
+
+    (5) var -> INT ID . .
+    (6) var -> INT ID . = expr .
+
+    .               shift and go to state 8
+    =               shift and go to state 9
+
+
+state 8
+
+    (5) var -> INT ID . .
+
+    INT             reduce using rule 5 (var -> INT ID . .)
+    $end            reduce using rule 5 (var -> INT ID . .)
+
+
+state 9
+
+    (6) var -> INT ID = . expr .
+    (7) expr -> . expr + termo
+    (8) expr -> . expr - termo
+    (9) expr -> . termo
+    (10) termo -> . termo * fator
+    (11) termo -> . termo / fator
+    (12) termo -> . fator
+    (13) fator -> . NUM
+    (14) fator -> . ID
+    (15) fator -> . ( expr )
+
+    NUM             shift and go to state 14
+    ID              shift and go to state 10
+    (               shift and go to state 15
+
+    expr                           shift and go to state 11
+    termo                          shift and go to state 12
+    fator                          shift and go to state 13
+
+state 10
+
+    (14) fator -> ID .
+
+    *               reduce using rule 14 (fator -> ID .)
+    /               reduce using rule 14 (fator -> ID .)
+    .               reduce using rule 14 (fator -> ID .)
+    +               reduce using rule 14 (fator -> ID .)
+    -               reduce using rule 14 (fator -> ID .)
+    )               reduce using rule 14 (fator -> ID .)
+
+
+state 11
+
+    (6) var -> INT ID = expr . .
+    (7) expr -> expr . + termo
+    (8) expr -> expr . - termo
+
+    .               shift and go to state 16
+    +               shift and go to state 17
+    -               shift and go to state 18
+
+
+state 12
+
+    (9) expr -> termo .
+    (10) termo -> termo . * fator
+    (11) termo -> termo . / fator
+
+    .               reduce using rule 9 (expr -> termo .)
+    +               reduce using rule 9 (expr -> termo .)
+    -               reduce using rule 9 (expr -> termo .)
+    )               reduce using rule 9 (expr -> termo .)
+    *               shift and go to state 19
+    /               shift and go to state 20
+
+
+state 13
+
+    (12) termo -> fator .
+
+    *               reduce using rule 12 (termo -> fator .)
+    /               reduce using rule 12 (termo -> fator .)
+    .               reduce using rule 12 (termo -> fator .)
+    +               reduce using rule 12 (termo -> fator .)
+    -               reduce using rule 12 (termo -> fator .)
+    )               reduce using rule 12 (termo -> fator .)
+
+
+state 14
+
+    (13) fator -> NUM .
+
+    *               reduce using rule 13 (fator -> NUM .)
+    /               reduce using rule 13 (fator -> NUM .)
+    .               reduce using rule 13 (fator -> NUM .)
+    +               reduce using rule 13 (fator -> NUM .)
+    -               reduce using rule 13 (fator -> NUM .)
+    )               reduce using rule 13 (fator -> NUM .)
+
+
+state 15
+
+    (15) fator -> ( . expr )
+    (7) expr -> . expr + termo
+    (8) expr -> . expr - termo
+    (9) expr -> . termo
+    (10) termo -> . termo * fator
+    (11) termo -> . termo / fator
+    (12) termo -> . fator
+    (13) fator -> . NUM
+    (14) fator -> . ID
+    (15) fator -> . ( expr )
+
+    NUM             shift and go to state 14
+    ID              shift and go to state 10
+    (               shift and go to state 15
+
+    expr                           shift and go to state 21
+    termo                          shift and go to state 12
+    fator                          shift and go to state 13
+
+state 16
+
+    (6) var -> INT ID = expr . .
+
+    INT             reduce using rule 6 (var -> INT ID = expr . .)
+    $end            reduce using rule 6 (var -> INT ID = expr . .)
+
+
+state 17
+
+    (7) expr -> expr + . termo
+    (10) termo -> . termo * fator
+    (11) termo -> . termo / fator
+    (12) termo -> . fator
+    (13) fator -> . NUM
+    (14) fator -> . ID
+    (15) fator -> . ( expr )
+
+    NUM             shift and go to state 14
+    ID              shift and go to state 10
+    (               shift and go to state 15
+
+    termo                          shift and go to state 22
+    fator                          shift and go to state 13
+
+state 18
+
+    (8) expr -> expr - . termo
+    (10) termo -> . termo * fator
+    (11) termo -> . termo / fator
+    (12) termo -> . fator
+    (13) fator -> . NUM
+    (14) fator -> . ID
+    (15) fator -> . ( expr )
+
+    NUM             shift and go to state 14
+    ID              shift and go to state 10
+    (               shift and go to state 15
+
+    termo                          shift and go to state 23
+    fator                          shift and go to state 13
+
+state 19
+
+    (10) termo -> termo * . fator
+    (13) fator -> . NUM
+    (14) fator -> . ID
+    (15) fator -> . ( expr )
+
+    NUM             shift and go to state 14
+    ID              shift and go to state 10
+    (               shift and go to state 15
+
+    fator                          shift and go to state 24
+
+state 20
+
+    (11) termo -> termo / . fator
+    (13) fator -> . NUM
+    (14) fator -> . ID
+    (15) fator -> . ( expr )
+
+    NUM             shift and go to state 14
+    ID              shift and go to state 10
+    (               shift and go to state 15
+
+    fator                          shift and go to state 25
+
+state 21
+
+    (15) fator -> ( expr . )
+    (7) expr -> expr . + termo
+    (8) expr -> expr . - termo
+
+    )               shift and go to state 26
+    +               shift and go to state 17
+    -               shift and go to state 18
+
+
+state 22
+
+    (7) expr -> expr + termo .
+    (10) termo -> termo . * fator
+    (11) termo -> termo . / fator
+
+    .               reduce using rule 7 (expr -> expr + termo .)
+    +               reduce using rule 7 (expr -> expr + termo .)
+    -               reduce using rule 7 (expr -> expr + termo .)
+    )               reduce using rule 7 (expr -> expr + termo .)
+    *               shift and go to state 19
+    /               shift and go to state 20
+
+
+state 23
+
+    (8) expr -> expr - termo .
+    (10) termo -> termo . * fator
+    (11) termo -> termo . / fator
+
+    .               reduce using rule 8 (expr -> expr - termo .)
+    +               reduce using rule 8 (expr -> expr - termo .)
+    -               reduce using rule 8 (expr -> expr - termo .)
+    )               reduce using rule 8 (expr -> expr - termo .)
+    *               shift and go to state 19
+    /               shift and go to state 20
+
+
+state 24
+
+    (10) termo -> termo * fator .
+
+    *               reduce using rule 10 (termo -> termo * fator .)
+    /               reduce using rule 10 (termo -> termo * fator .)
+    .               reduce using rule 10 (termo -> termo * fator .)
+    +               reduce using rule 10 (termo -> termo * fator .)
+    -               reduce using rule 10 (termo -> termo * fator .)
+    )               reduce using rule 10 (termo -> termo * fator .)
+
+
+state 25
+
+    (11) termo -> termo / fator .
+
+    *               reduce using rule 11 (termo -> termo / fator .)
+    /               reduce using rule 11 (termo -> termo / fator .)
+    .               reduce using rule 11 (termo -> termo / fator .)
+    +               reduce using rule 11 (termo -> termo / fator .)
+    -               reduce using rule 11 (termo -> termo / fator .)
+    )               reduce using rule 11 (termo -> termo / fator .)
+
+
+state 26
+
+    (15) fator -> ( expr ) .
+
+    *               reduce using rule 15 (fator -> ( expr ) .)
+    /               reduce using rule 15 (fator -> ( expr ) .)
+    .               reduce using rule 15 (fator -> ( expr ) .)
+    +               reduce using rule 15 (fator -> ( expr ) .)
+    -               reduce using rule 15 (fator -> ( expr ) .)
+    )               reduce using rule 15 (fator -> ( expr ) .)
 
