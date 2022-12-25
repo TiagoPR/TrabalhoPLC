@@ -3,6 +3,9 @@ import sys
 
 from linguagem_lex import tokens
 
+def p_Programa(p):
+    "Programa : Funcs Vars Cod"
+    parser.assembly = f'START\n{p[1]}{p[2]}{p[3]}STOP'
 #Breno ----------------------------------------------------------------------------------------------------------------
 
 ## TEMA DE DISCUSSÃO ADICIONAR NOT NAS OPRELACAO ??????????????  , o Cond ta certo de fato ele retorna ?????????
@@ -50,11 +53,9 @@ def p_cond_e(p):
 def p_cond_ou(p):
     "cond : cond OU cond"
     p[0] = f'pushi{p[1]}\npushi{p[3]}\nadd\npushi 0\nsup\n'
+'''
 
-def p_ler(p):
-    "ler : INPUT FRASE"
-    p[0] = f"pushs {p[2]}\nread\natoi"
-
+'''
 def p_escreva(p):
     "escreva : PRINT corpoescreve"
     p[0] = f"{p[2]}"
@@ -82,9 +83,7 @@ def p_ciclo(p):
     
 # Tiago ----------------------------------------------------------------------
 '''
-def p_Programa(p):
-    "Programa : Vars Cod"
-    parser.assembly = f'START\n{p[1]}\n{p[2]}\nSTOP'
+
 
 
 def p_Vars_Empty(p):
@@ -94,26 +93,27 @@ def p_Vars_Empty(p):
 def p_Vars_Var(p):
     "Vars : var Vars"
     p[0] = f'{p[1]}{p[2]}'
-'''
+
 #def p_Funcs_Empty(p):
+#    "Funcs : "
+#    p[0] = f''
+def p_Funcs_Empty(p):
     "Funcs : "
     p[0] = f''
 
-#def p_Funcs_Func(p):
+def p_Funcs_Func(p):
     "Funcs : Funcs Func"
     p[0] = f'{p[1]}\n{p[2]}'
 
-#def p_Func(p):
-#    "Func : ID begin Cod return expr end"
-#    p[0] = f'{p[1]}:\n{p[2]}\nret'
+def p_Func(p):
+    "Func : ID begin Cod return expr end"
+    p[0] = f'{p[1]}:\n{p[2]}\nret'
 
-def p_Funcs_Empty(p):
-    "Funcs : "
-    p[0] = f' '
-'''
+
+
 def p_Cod_Empty(p):
     "Cod : "
-    p[0] = f' '
+    p[0] = f''
 
 def p_var_tipoID(p):
     "var : INT ID '.'"
@@ -134,26 +134,30 @@ def p_var_atribuicao(p):
 #    "Cod : Linha"
 #    p[0] = f'{p[0]}'
 
-#def p_Cod_linhas(p):
-#    "Cod : Linha Cod"
-#   p[0] = f'{p[0]} {p[1]}'
+def p_Cod_linhas(p):
+    "Cod : Linha Cod"
+    p[0] = f'{p[0]} {p[1]}'
 
 #def p_Linha_Escrever(p):
 #    "Linha : Escrever"
 #    p[0] = p[1]
 
-#def p_Linha_atr(p):
-#    "Linha : atr"
-#    p[0] = p[1]
+def p_Linha_atr(p):
+    "Linha : atr"
+    p[0] = p[1]
 
 
 #def p_Linha_empty(p):
 #    "Linha : "
 #    p[0] = f''
 
-#def p_Linha_Ler(p):
-#    "Linha : Ler"
-#    p[0] = p[1]
+def p_Linha_Ler(p):
+    "Linha : Ler"
+    p[0] = p[1]
+
+def p_ler(p):
+    "Ler : INPUT FRASE"
+    p[0] = f"pushs {p[2]}\nread\natoi"
 
 #def p_Linha_Se(p):
 #    "Linha : SE"
@@ -213,9 +217,9 @@ def p_fator_expr(p):
     "fator : '(' expr ')'"
     p[0] = p[2]
 
-#def p_atr(p):
-#    "atr : ID '=' expr"
-#    p[0] = f'{p[3]}\nstoreg{parser.table[p[1]]}'
+def p_atr(p):
+    "atr : ID '=' expr"
+    p[0] = f'{p[3]}\nstoreg{parser.table[p[1]]}'
 
 def p_error(p):
     print("Syntax error:", p)
@@ -233,7 +237,7 @@ parser.labels = 0
 fonte = ""
 for linha in sys.stdin:
     fonte += linha
-print('oi')
+
 
 parser.parse(fonte)
 

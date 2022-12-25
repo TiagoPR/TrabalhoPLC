@@ -6,11 +6,9 @@ Unused terminals:
     E
     ELSE
     FALSE
-    FRASE
     IF
     INF
     INFEQ
-    INPUT
     OU
     PRINT
     SUP
@@ -22,44 +20,52 @@ Unused terminals:
 Grammar
 
 Rule 0     S' -> Programa
-Rule 1     Programa -> Vars Cod
+Rule 1     Programa -> Funcs Vars Cod
 Rule 2     Vars -> <empty>
 Rule 3     Vars -> var Vars
-Rule 4     Cod -> <empty>
-Rule 5     var -> INT ID .
-Rule 6     var -> INT ID = expr .
-Rule 7     expr -> expr + termo
-Rule 8     expr -> expr - termo
-Rule 9     expr -> termo
-Rule 10    termo -> termo * fator
-Rule 11    termo -> termo / fator
-Rule 12    termo -> fator
-Rule 13    fator -> NUM
-Rule 14    fator -> ID
-Rule 15    fator -> ( expr )
+Rule 4     Funcs -> <empty>
+Rule 5     Funcs -> Funcs Func
+Rule 6     Func -> ID begin Cod return expr end
+Rule 7     Cod -> <empty>
+Rule 8     var -> INT ID .
+Rule 9     var -> INT ID = expr .
+Rule 10    Cod -> Linha Cod
+Rule 11    Linha -> atr
+Rule 12    Linha -> Ler
+Rule 13    Ler -> INPUT FRASE
+Rule 14    expr -> expr + termo
+Rule 15    expr -> expr - termo
+Rule 16    expr -> termo
+Rule 17    termo -> termo * fator
+Rule 18    termo -> termo / fator
+Rule 19    termo -> fator
+Rule 20    fator -> NUM
+Rule 21    fator -> ID
+Rule 22    fator -> ( expr )
+Rule 23    atr -> ID = expr
 
 Terminals, with rules where they appear
 
-(                    : 15
-)                    : 15
-*                    : 10
-+                    : 7
--                    : 8
-.                    : 5 6
-/                    : 11
-=                    : 6
+(                    : 22
+)                    : 22
+*                    : 17
++                    : 14
+-                    : 15
+.                    : 8 9
+/                    : 18
+=                    : 9 23
 DO                   : 
 E                    : 
 ELSE                 : 
 FALSE                : 
-FRASE                : 
-ID                   : 5 6 14
+FRASE                : 13
+ID                   : 6 8 9 21 23
 IF                   : 
 INF                  : 
 INFEQ                : 
-INPUT                : 
-INT                  : 5 6
-NUM                  : 13
+INPUT                : 13
+INT                  : 8 9
+NUM                  : 20
 OU                   : 
 PRINT                : 
 SUP                  : 
@@ -67,16 +73,24 @@ SUPEQ                :
 THEN                 : 
 TRUE                 : 
 WHILE                : 
+begin                : 6
+end                  : 6
 error                : 
+return               : 6
 
 Nonterminals, with rules where they appear
 
-Cod                  : 1
+Cod                  : 1 6 10
+Func                 : 5
+Funcs                : 1 5
+Ler                  : 12
+Linha                : 10
 Programa             : 0
 Vars                 : 1 3
-expr                 : 6 7 8 15
-fator                : 10 11 12
-termo                : 7 8 9 10 11
+atr                  : 11
+expr                 : 6 9 14 15 22 23
+fator                : 17 18 19
+termo                : 14 15 16 17 18
 var                  : 3
 
 Parsing method: LALR
@@ -84,18 +98,17 @@ Parsing method: LALR
 state 0
 
     (0) S' -> . Programa
-    (1) Programa -> . Vars Cod
-    (2) Vars -> .
-    (3) Vars -> . var Vars
-    (5) var -> . INT ID .
-    (6) var -> . INT ID = expr .
+    (1) Programa -> . Funcs Vars Cod
+    (4) Funcs -> .
+    (5) Funcs -> . Funcs Func
 
-    $end            reduce using rule 2 (Vars -> .)
-    INT             shift and go to state 4
+    ID              reduce using rule 4 (Funcs -> .)
+    INT             reduce using rule 4 (Funcs -> .)
+    INPUT           reduce using rule 4 (Funcs -> .)
+    $end            reduce using rule 4 (Funcs -> .)
 
     Programa                       shift and go to state 1
-    Vars                           shift and go to state 2
-    var                            shift and go to state 3
+    Funcs                          shift and go to state 2
 
 state 1
 
@@ -105,308 +118,589 @@ state 1
 
 state 2
 
-    (1) Programa -> Vars . Cod
-    (4) Cod -> .
+    (1) Programa -> Funcs . Vars Cod
+    (5) Funcs -> Funcs . Func
+    (2) Vars -> .
+    (3) Vars -> . var Vars
+    (6) Func -> . ID begin Cod return expr end
+    (8) var -> . INT ID .
+    (9) var -> . INT ID = expr .
 
-    $end            reduce using rule 4 (Cod -> .)
+  ! shift/reduce conflict for ID resolved as shift
+    INPUT           reduce using rule 2 (Vars -> .)
+    $end            reduce using rule 2 (Vars -> .)
+    ID              shift and go to state 6
+    INT             shift and go to state 7
 
-    Cod                            shift and go to state 5
+  ! ID              [ reduce using rule 2 (Vars -> .) ]
+
+    Vars                           shift and go to state 3
+    Func                           shift and go to state 4
+    var                            shift and go to state 5
 
 state 3
 
-    (3) Vars -> var . Vars
-    (2) Vars -> .
-    (3) Vars -> . var Vars
-    (5) var -> . INT ID .
-    (6) var -> . INT ID = expr .
+    (1) Programa -> Funcs Vars . Cod
+    (7) Cod -> .
+    (10) Cod -> . Linha Cod
+    (11) Linha -> . atr
+    (12) Linha -> . Ler
+    (23) atr -> . ID = expr
+    (13) Ler -> . INPUT FRASE
 
-    $end            reduce using rule 2 (Vars -> .)
-    INT             shift and go to state 4
+    $end            reduce using rule 7 (Cod -> .)
+    ID              shift and go to state 12
+    INPUT           shift and go to state 13
 
-    var                            shift and go to state 3
-    Vars                           shift and go to state 6
+    Cod                            shift and go to state 8
+    Linha                          shift and go to state 9
+    atr                            shift and go to state 10
+    Ler                            shift and go to state 11
 
 state 4
 
-    (5) var -> INT . ID .
-    (6) var -> INT . ID = expr .
+    (5) Funcs -> Funcs Func .
 
-    ID              shift and go to state 7
+    ID              reduce using rule 5 (Funcs -> Funcs Func .)
+    INT             reduce using rule 5 (Funcs -> Funcs Func .)
+    INPUT           reduce using rule 5 (Funcs -> Funcs Func .)
+    $end            reduce using rule 5 (Funcs -> Funcs Func .)
 
 
 state 5
 
-    (1) Programa -> Vars Cod .
+    (3) Vars -> var . Vars
+    (2) Vars -> .
+    (3) Vars -> . var Vars
+    (8) var -> . INT ID .
+    (9) var -> . INT ID = expr .
 
-    $end            reduce using rule 1 (Programa -> Vars Cod .)
+    ID              reduce using rule 2 (Vars -> .)
+    INPUT           reduce using rule 2 (Vars -> .)
+    $end            reduce using rule 2 (Vars -> .)
+    INT             shift and go to state 7
 
+    var                            shift and go to state 5
+    Vars                           shift and go to state 14
 
 state 6
 
-    (3) Vars -> var Vars .
+    (6) Func -> ID . begin Cod return expr end
 
-    $end            reduce using rule 3 (Vars -> var Vars .)
+    begin           shift and go to state 15
 
 
 state 7
 
-    (5) var -> INT ID . .
-    (6) var -> INT ID . = expr .
+    (8) var -> INT . ID .
+    (9) var -> INT . ID = expr .
 
-    .               shift and go to state 8
-    =               shift and go to state 9
+    ID              shift and go to state 16
 
 
 state 8
 
-    (5) var -> INT ID . .
+    (1) Programa -> Funcs Vars Cod .
 
-    INT             reduce using rule 5 (var -> INT ID . .)
-    $end            reduce using rule 5 (var -> INT ID . .)
+    $end            reduce using rule 1 (Programa -> Funcs Vars Cod .)
 
 
 state 9
 
-    (6) var -> INT ID = . expr .
-    (7) expr -> . expr + termo
-    (8) expr -> . expr - termo
-    (9) expr -> . termo
-    (10) termo -> . termo * fator
-    (11) termo -> . termo / fator
-    (12) termo -> . fator
-    (13) fator -> . NUM
-    (14) fator -> . ID
-    (15) fator -> . ( expr )
+    (10) Cod -> Linha . Cod
+    (7) Cod -> .
+    (10) Cod -> . Linha Cod
+    (11) Linha -> . atr
+    (12) Linha -> . Ler
+    (23) atr -> . ID = expr
+    (13) Ler -> . INPUT FRASE
 
-    NUM             shift and go to state 14
-    ID              shift and go to state 10
-    (               shift and go to state 15
+    $end            reduce using rule 7 (Cod -> .)
+    return          reduce using rule 7 (Cod -> .)
+    ID              shift and go to state 12
+    INPUT           shift and go to state 13
 
-    expr                           shift and go to state 11
-    termo                          shift and go to state 12
-    fator                          shift and go to state 13
+    Linha                          shift and go to state 9
+    Cod                            shift and go to state 17
+    atr                            shift and go to state 10
+    Ler                            shift and go to state 11
 
 state 10
 
-    (14) fator -> ID .
+    (11) Linha -> atr .
 
-    *               reduce using rule 14 (fator -> ID .)
-    /               reduce using rule 14 (fator -> ID .)
-    .               reduce using rule 14 (fator -> ID .)
-    +               reduce using rule 14 (fator -> ID .)
-    -               reduce using rule 14 (fator -> ID .)
-    )               reduce using rule 14 (fator -> ID .)
+    ID              reduce using rule 11 (Linha -> atr .)
+    INPUT           reduce using rule 11 (Linha -> atr .)
+    $end            reduce using rule 11 (Linha -> atr .)
+    return          reduce using rule 11 (Linha -> atr .)
 
 
 state 11
 
-    (6) var -> INT ID = expr . .
-    (7) expr -> expr . + termo
-    (8) expr -> expr . - termo
+    (12) Linha -> Ler .
 
-    .               shift and go to state 16
-    +               shift and go to state 17
-    -               shift and go to state 18
+    ID              reduce using rule 12 (Linha -> Ler .)
+    INPUT           reduce using rule 12 (Linha -> Ler .)
+    $end            reduce using rule 12 (Linha -> Ler .)
+    return          reduce using rule 12 (Linha -> Ler .)
 
 
 state 12
 
-    (9) expr -> termo .
-    (10) termo -> termo . * fator
-    (11) termo -> termo . / fator
+    (23) atr -> ID . = expr
 
-    .               reduce using rule 9 (expr -> termo .)
-    +               reduce using rule 9 (expr -> termo .)
-    -               reduce using rule 9 (expr -> termo .)
-    )               reduce using rule 9 (expr -> termo .)
-    *               shift and go to state 19
-    /               shift and go to state 20
+    =               shift and go to state 18
 
 
 state 13
 
-    (12) termo -> fator .
+    (13) Ler -> INPUT . FRASE
 
-    *               reduce using rule 12 (termo -> fator .)
-    /               reduce using rule 12 (termo -> fator .)
-    .               reduce using rule 12 (termo -> fator .)
-    +               reduce using rule 12 (termo -> fator .)
-    -               reduce using rule 12 (termo -> fator .)
-    )               reduce using rule 12 (termo -> fator .)
+    FRASE           shift and go to state 19
 
 
 state 14
 
-    (13) fator -> NUM .
+    (3) Vars -> var Vars .
 
-    *               reduce using rule 13 (fator -> NUM .)
-    /               reduce using rule 13 (fator -> NUM .)
-    .               reduce using rule 13 (fator -> NUM .)
-    +               reduce using rule 13 (fator -> NUM .)
-    -               reduce using rule 13 (fator -> NUM .)
-    )               reduce using rule 13 (fator -> NUM .)
+    ID              reduce using rule 3 (Vars -> var Vars .)
+    INPUT           reduce using rule 3 (Vars -> var Vars .)
+    $end            reduce using rule 3 (Vars -> var Vars .)
 
 
 state 15
 
-    (15) fator -> ( . expr )
-    (7) expr -> . expr + termo
-    (8) expr -> . expr - termo
-    (9) expr -> . termo
-    (10) termo -> . termo * fator
-    (11) termo -> . termo / fator
-    (12) termo -> . fator
-    (13) fator -> . NUM
-    (14) fator -> . ID
-    (15) fator -> . ( expr )
+    (6) Func -> ID begin . Cod return expr end
+    (7) Cod -> .
+    (10) Cod -> . Linha Cod
+    (11) Linha -> . atr
+    (12) Linha -> . Ler
+    (23) atr -> . ID = expr
+    (13) Ler -> . INPUT FRASE
 
-    NUM             shift and go to state 14
-    ID              shift and go to state 10
-    (               shift and go to state 15
+    return          reduce using rule 7 (Cod -> .)
+    ID              shift and go to state 12
+    INPUT           shift and go to state 13
 
-    expr                           shift and go to state 21
-    termo                          shift and go to state 12
-    fator                          shift and go to state 13
+    Cod                            shift and go to state 20
+    Linha                          shift and go to state 9
+    atr                            shift and go to state 10
+    Ler                            shift and go to state 11
 
 state 16
 
-    (6) var -> INT ID = expr . .
+    (8) var -> INT ID . .
+    (9) var -> INT ID . = expr .
 
-    INT             reduce using rule 6 (var -> INT ID = expr . .)
-    $end            reduce using rule 6 (var -> INT ID = expr . .)
+    .               shift and go to state 21
+    =               shift and go to state 22
 
 
 state 17
 
-    (7) expr -> expr + . termo
-    (10) termo -> . termo * fator
-    (11) termo -> . termo / fator
-    (12) termo -> . fator
-    (13) fator -> . NUM
-    (14) fator -> . ID
-    (15) fator -> . ( expr )
+    (10) Cod -> Linha Cod .
 
-    NUM             shift and go to state 14
-    ID              shift and go to state 10
-    (               shift and go to state 15
+    $end            reduce using rule 10 (Cod -> Linha Cod .)
+    return          reduce using rule 10 (Cod -> Linha Cod .)
 
-    termo                          shift and go to state 22
-    fator                          shift and go to state 13
 
 state 18
 
-    (8) expr -> expr - . termo
-    (10) termo -> . termo * fator
-    (11) termo -> . termo / fator
-    (12) termo -> . fator
-    (13) fator -> . NUM
-    (14) fator -> . ID
-    (15) fator -> . ( expr )
+    (23) atr -> ID = . expr
+    (14) expr -> . expr + termo
+    (15) expr -> . expr - termo
+    (16) expr -> . termo
+    (17) termo -> . termo * fator
+    (18) termo -> . termo / fator
+    (19) termo -> . fator
+    (20) fator -> . NUM
+    (21) fator -> . ID
+    (22) fator -> . ( expr )
 
-    NUM             shift and go to state 14
-    ID              shift and go to state 10
-    (               shift and go to state 15
+    NUM             shift and go to state 27
+    ID              shift and go to state 23
+    (               shift and go to state 28
 
-    termo                          shift and go to state 23
-    fator                          shift and go to state 13
+    expr                           shift and go to state 24
+    termo                          shift and go to state 25
+    fator                          shift and go to state 26
 
 state 19
 
-    (10) termo -> termo * . fator
-    (13) fator -> . NUM
-    (14) fator -> . ID
-    (15) fator -> . ( expr )
+    (13) Ler -> INPUT FRASE .
 
-    NUM             shift and go to state 14
-    ID              shift and go to state 10
-    (               shift and go to state 15
+    ID              reduce using rule 13 (Ler -> INPUT FRASE .)
+    INPUT           reduce using rule 13 (Ler -> INPUT FRASE .)
+    $end            reduce using rule 13 (Ler -> INPUT FRASE .)
+    return          reduce using rule 13 (Ler -> INPUT FRASE .)
 
-    fator                          shift and go to state 24
 
 state 20
 
-    (11) termo -> termo / . fator
-    (13) fator -> . NUM
-    (14) fator -> . ID
-    (15) fator -> . ( expr )
+    (6) Func -> ID begin Cod . return expr end
 
-    NUM             shift and go to state 14
-    ID              shift and go to state 10
-    (               shift and go to state 15
+    return          shift and go to state 29
 
-    fator                          shift and go to state 25
 
 state 21
 
-    (15) fator -> ( expr . )
-    (7) expr -> expr . + termo
-    (8) expr -> expr . - termo
+    (8) var -> INT ID . .
 
-    )               shift and go to state 26
-    +               shift and go to state 17
-    -               shift and go to state 18
+    INT             reduce using rule 8 (var -> INT ID . .)
+    ID              reduce using rule 8 (var -> INT ID . .)
+    INPUT           reduce using rule 8 (var -> INT ID . .)
+    $end            reduce using rule 8 (var -> INT ID . .)
 
 
 state 22
 
-    (7) expr -> expr + termo .
-    (10) termo -> termo . * fator
-    (11) termo -> termo . / fator
+    (9) var -> INT ID = . expr .
+    (14) expr -> . expr + termo
+    (15) expr -> . expr - termo
+    (16) expr -> . termo
+    (17) termo -> . termo * fator
+    (18) termo -> . termo / fator
+    (19) termo -> . fator
+    (20) fator -> . NUM
+    (21) fator -> . ID
+    (22) fator -> . ( expr )
 
-    .               reduce using rule 7 (expr -> expr + termo .)
-    +               reduce using rule 7 (expr -> expr + termo .)
-    -               reduce using rule 7 (expr -> expr + termo .)
-    )               reduce using rule 7 (expr -> expr + termo .)
-    *               shift and go to state 19
-    /               shift and go to state 20
+    NUM             shift and go to state 27
+    ID              shift and go to state 23
+    (               shift and go to state 28
 
+    expr                           shift and go to state 30
+    termo                          shift and go to state 25
+    fator                          shift and go to state 26
 
 state 23
 
-    (8) expr -> expr - termo .
-    (10) termo -> termo . * fator
-    (11) termo -> termo . / fator
+    (21) fator -> ID .
 
-    .               reduce using rule 8 (expr -> expr - termo .)
-    +               reduce using rule 8 (expr -> expr - termo .)
-    -               reduce using rule 8 (expr -> expr - termo .)
-    )               reduce using rule 8 (expr -> expr - termo .)
-    *               shift and go to state 19
-    /               shift and go to state 20
+    *               reduce using rule 21 (fator -> ID .)
+    /               reduce using rule 21 (fator -> ID .)
+    +               reduce using rule 21 (fator -> ID .)
+    -               reduce using rule 21 (fator -> ID .)
+    ID              reduce using rule 21 (fator -> ID .)
+    INPUT           reduce using rule 21 (fator -> ID .)
+    $end            reduce using rule 21 (fator -> ID .)
+    return          reduce using rule 21 (fator -> ID .)
+    .               reduce using rule 21 (fator -> ID .)
+    )               reduce using rule 21 (fator -> ID .)
+    end             reduce using rule 21 (fator -> ID .)
 
 
 state 24
 
-    (10) termo -> termo * fator .
+    (23) atr -> ID = expr .
+    (14) expr -> expr . + termo
+    (15) expr -> expr . - termo
 
-    *               reduce using rule 10 (termo -> termo * fator .)
-    /               reduce using rule 10 (termo -> termo * fator .)
-    .               reduce using rule 10 (termo -> termo * fator .)
-    +               reduce using rule 10 (termo -> termo * fator .)
-    -               reduce using rule 10 (termo -> termo * fator .)
-    )               reduce using rule 10 (termo -> termo * fator .)
+    ID              reduce using rule 23 (atr -> ID = expr .)
+    INPUT           reduce using rule 23 (atr -> ID = expr .)
+    $end            reduce using rule 23 (atr -> ID = expr .)
+    return          reduce using rule 23 (atr -> ID = expr .)
+    +               shift and go to state 31
+    -               shift and go to state 32
 
 
 state 25
 
-    (11) termo -> termo / fator .
+    (16) expr -> termo .
+    (17) termo -> termo . * fator
+    (18) termo -> termo . / fator
 
-    *               reduce using rule 11 (termo -> termo / fator .)
-    /               reduce using rule 11 (termo -> termo / fator .)
-    .               reduce using rule 11 (termo -> termo / fator .)
-    +               reduce using rule 11 (termo -> termo / fator .)
-    -               reduce using rule 11 (termo -> termo / fator .)
-    )               reduce using rule 11 (termo -> termo / fator .)
+    +               reduce using rule 16 (expr -> termo .)
+    -               reduce using rule 16 (expr -> termo .)
+    ID              reduce using rule 16 (expr -> termo .)
+    INPUT           reduce using rule 16 (expr -> termo .)
+    $end            reduce using rule 16 (expr -> termo .)
+    return          reduce using rule 16 (expr -> termo .)
+    .               reduce using rule 16 (expr -> termo .)
+    )               reduce using rule 16 (expr -> termo .)
+    end             reduce using rule 16 (expr -> termo .)
+    *               shift and go to state 33
+    /               shift and go to state 34
 
 
 state 26
 
-    (15) fator -> ( expr ) .
+    (19) termo -> fator .
 
-    *               reduce using rule 15 (fator -> ( expr ) .)
-    /               reduce using rule 15 (fator -> ( expr ) .)
-    .               reduce using rule 15 (fator -> ( expr ) .)
-    +               reduce using rule 15 (fator -> ( expr ) .)
-    -               reduce using rule 15 (fator -> ( expr ) .)
-    )               reduce using rule 15 (fator -> ( expr ) .)
+    *               reduce using rule 19 (termo -> fator .)
+    /               reduce using rule 19 (termo -> fator .)
+    +               reduce using rule 19 (termo -> fator .)
+    -               reduce using rule 19 (termo -> fator .)
+    ID              reduce using rule 19 (termo -> fator .)
+    INPUT           reduce using rule 19 (termo -> fator .)
+    $end            reduce using rule 19 (termo -> fator .)
+    return          reduce using rule 19 (termo -> fator .)
+    .               reduce using rule 19 (termo -> fator .)
+    )               reduce using rule 19 (termo -> fator .)
+    end             reduce using rule 19 (termo -> fator .)
 
+
+state 27
+
+    (20) fator -> NUM .
+
+    *               reduce using rule 20 (fator -> NUM .)
+    /               reduce using rule 20 (fator -> NUM .)
+    +               reduce using rule 20 (fator -> NUM .)
+    -               reduce using rule 20 (fator -> NUM .)
+    ID              reduce using rule 20 (fator -> NUM .)
+    INPUT           reduce using rule 20 (fator -> NUM .)
+    $end            reduce using rule 20 (fator -> NUM .)
+    return          reduce using rule 20 (fator -> NUM .)
+    .               reduce using rule 20 (fator -> NUM .)
+    )               reduce using rule 20 (fator -> NUM .)
+    end             reduce using rule 20 (fator -> NUM .)
+
+
+state 28
+
+    (22) fator -> ( . expr )
+    (14) expr -> . expr + termo
+    (15) expr -> . expr - termo
+    (16) expr -> . termo
+    (17) termo -> . termo * fator
+    (18) termo -> . termo / fator
+    (19) termo -> . fator
+    (20) fator -> . NUM
+    (21) fator -> . ID
+    (22) fator -> . ( expr )
+
+    NUM             shift and go to state 27
+    ID              shift and go to state 23
+    (               shift and go to state 28
+
+    expr                           shift and go to state 35
+    termo                          shift and go to state 25
+    fator                          shift and go to state 26
+
+state 29
+
+    (6) Func -> ID begin Cod return . expr end
+    (14) expr -> . expr + termo
+    (15) expr -> . expr - termo
+    (16) expr -> . termo
+    (17) termo -> . termo * fator
+    (18) termo -> . termo / fator
+    (19) termo -> . fator
+    (20) fator -> . NUM
+    (21) fator -> . ID
+    (22) fator -> . ( expr )
+
+    NUM             shift and go to state 27
+    ID              shift and go to state 23
+    (               shift and go to state 28
+
+    expr                           shift and go to state 36
+    termo                          shift and go to state 25
+    fator                          shift and go to state 26
+
+state 30
+
+    (9) var -> INT ID = expr . .
+    (14) expr -> expr . + termo
+    (15) expr -> expr . - termo
+
+    .               shift and go to state 37
+    +               shift and go to state 31
+    -               shift and go to state 32
+
+
+state 31
+
+    (14) expr -> expr + . termo
+    (17) termo -> . termo * fator
+    (18) termo -> . termo / fator
+    (19) termo -> . fator
+    (20) fator -> . NUM
+    (21) fator -> . ID
+    (22) fator -> . ( expr )
+
+    NUM             shift and go to state 27
+    ID              shift and go to state 23
+    (               shift and go to state 28
+
+    termo                          shift and go to state 38
+    fator                          shift and go to state 26
+
+state 32
+
+    (15) expr -> expr - . termo
+    (17) termo -> . termo * fator
+    (18) termo -> . termo / fator
+    (19) termo -> . fator
+    (20) fator -> . NUM
+    (21) fator -> . ID
+    (22) fator -> . ( expr )
+
+    NUM             shift and go to state 27
+    ID              shift and go to state 23
+    (               shift and go to state 28
+
+    termo                          shift and go to state 39
+    fator                          shift and go to state 26
+
+state 33
+
+    (17) termo -> termo * . fator
+    (20) fator -> . NUM
+    (21) fator -> . ID
+    (22) fator -> . ( expr )
+
+    NUM             shift and go to state 27
+    ID              shift and go to state 23
+    (               shift and go to state 28
+
+    fator                          shift and go to state 40
+
+state 34
+
+    (18) termo -> termo / . fator
+    (20) fator -> . NUM
+    (21) fator -> . ID
+    (22) fator -> . ( expr )
+
+    NUM             shift and go to state 27
+    ID              shift and go to state 23
+    (               shift and go to state 28
+
+    fator                          shift and go to state 41
+
+state 35
+
+    (22) fator -> ( expr . )
+    (14) expr -> expr . + termo
+    (15) expr -> expr . - termo
+
+    )               shift and go to state 42
+    +               shift and go to state 31
+    -               shift and go to state 32
+
+
+state 36
+
+    (6) Func -> ID begin Cod return expr . end
+    (14) expr -> expr . + termo
+    (15) expr -> expr . - termo
+
+    end             shift and go to state 43
+    +               shift and go to state 31
+    -               shift and go to state 32
+
+
+state 37
+
+    (9) var -> INT ID = expr . .
+
+    INT             reduce using rule 9 (var -> INT ID = expr . .)
+    ID              reduce using rule 9 (var -> INT ID = expr . .)
+    INPUT           reduce using rule 9 (var -> INT ID = expr . .)
+    $end            reduce using rule 9 (var -> INT ID = expr . .)
+
+
+state 38
+
+    (14) expr -> expr + termo .
+    (17) termo -> termo . * fator
+    (18) termo -> termo . / fator
+
+    +               reduce using rule 14 (expr -> expr + termo .)
+    -               reduce using rule 14 (expr -> expr + termo .)
+    ID              reduce using rule 14 (expr -> expr + termo .)
+    INPUT           reduce using rule 14 (expr -> expr + termo .)
+    $end            reduce using rule 14 (expr -> expr + termo .)
+    return          reduce using rule 14 (expr -> expr + termo .)
+    .               reduce using rule 14 (expr -> expr + termo .)
+    )               reduce using rule 14 (expr -> expr + termo .)
+    end             reduce using rule 14 (expr -> expr + termo .)
+    *               shift and go to state 33
+    /               shift and go to state 34
+
+
+state 39
+
+    (15) expr -> expr - termo .
+    (17) termo -> termo . * fator
+    (18) termo -> termo . / fator
+
+    +               reduce using rule 15 (expr -> expr - termo .)
+    -               reduce using rule 15 (expr -> expr - termo .)
+    ID              reduce using rule 15 (expr -> expr - termo .)
+    INPUT           reduce using rule 15 (expr -> expr - termo .)
+    $end            reduce using rule 15 (expr -> expr - termo .)
+    return          reduce using rule 15 (expr -> expr - termo .)
+    .               reduce using rule 15 (expr -> expr - termo .)
+    )               reduce using rule 15 (expr -> expr - termo .)
+    end             reduce using rule 15 (expr -> expr - termo .)
+    *               shift and go to state 33
+    /               shift and go to state 34
+
+
+state 40
+
+    (17) termo -> termo * fator .
+
+    *               reduce using rule 17 (termo -> termo * fator .)
+    /               reduce using rule 17 (termo -> termo * fator .)
+    +               reduce using rule 17 (termo -> termo * fator .)
+    -               reduce using rule 17 (termo -> termo * fator .)
+    ID              reduce using rule 17 (termo -> termo * fator .)
+    INPUT           reduce using rule 17 (termo -> termo * fator .)
+    $end            reduce using rule 17 (termo -> termo * fator .)
+    return          reduce using rule 17 (termo -> termo * fator .)
+    .               reduce using rule 17 (termo -> termo * fator .)
+    )               reduce using rule 17 (termo -> termo * fator .)
+    end             reduce using rule 17 (termo -> termo * fator .)
+
+
+state 41
+
+    (18) termo -> termo / fator .
+
+    *               reduce using rule 18 (termo -> termo / fator .)
+    /               reduce using rule 18 (termo -> termo / fator .)
+    +               reduce using rule 18 (termo -> termo / fator .)
+    -               reduce using rule 18 (termo -> termo / fator .)
+    ID              reduce using rule 18 (termo -> termo / fator .)
+    INPUT           reduce using rule 18 (termo -> termo / fator .)
+    $end            reduce using rule 18 (termo -> termo / fator .)
+    return          reduce using rule 18 (termo -> termo / fator .)
+    .               reduce using rule 18 (termo -> termo / fator .)
+    )               reduce using rule 18 (termo -> termo / fator .)
+    end             reduce using rule 18 (termo -> termo / fator .)
+
+
+state 42
+
+    (22) fator -> ( expr ) .
+
+    *               reduce using rule 22 (fator -> ( expr ) .)
+    /               reduce using rule 22 (fator -> ( expr ) .)
+    +               reduce using rule 22 (fator -> ( expr ) .)
+    -               reduce using rule 22 (fator -> ( expr ) .)
+    ID              reduce using rule 22 (fator -> ( expr ) .)
+    INPUT           reduce using rule 22 (fator -> ( expr ) .)
+    $end            reduce using rule 22 (fator -> ( expr ) .)
+    return          reduce using rule 22 (fator -> ( expr ) .)
+    .               reduce using rule 22 (fator -> ( expr ) .)
+    )               reduce using rule 22 (fator -> ( expr ) .)
+    end             reduce using rule 22 (fator -> ( expr ) .)
+
+
+state 43
+
+    (6) Func -> ID begin Cod return expr end .
+
+    ID              reduce using rule 6 (Func -> ID begin Cod return expr end .)
+    INT             reduce using rule 6 (Func -> ID begin Cod return expr end .)
+    INPUT           reduce using rule 6 (Func -> ID begin Cod return expr end .)
+    $end            reduce using rule 6 (Func -> ID begin Cod return expr end .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ID in state 2 resolved as shift

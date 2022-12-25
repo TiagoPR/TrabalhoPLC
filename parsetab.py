@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "DO E ELSE FALSE FRASE ID IF INF INFEQ INPUT INT NUM OU PRINT SUP SUPEQ THEN TRUE WHILEPrograma : Vars CodVars : Vars : var VarsCod : var : INT ID '.'var : INT ID '=' expr '.'expr : expr '+' termoexpr : expr '-' termoexpr : termotermo : termo '*' fatortermo : termo '/' fatortermo : fatorfator : NUMfator : IDfator : '(' expr ')'"
+_lr_signature = "DO E ELSE FALSE FRASE ID IF INF INFEQ INPUT INT NUM OU PRINT SUP SUPEQ THEN TRUE WHILE begin end returnPrograma : Funcs Vars CodVars : Vars : var VarsFuncs : Funcs : Funcs FuncFunc : ID begin Cod return expr endCod : var : INT ID '.'var : INT ID '=' expr '.'Cod : Linha CodLinha : atrLinha : LerLer : INPUT FRASEexpr : expr '+' termoexpr : expr '-' termoexpr : termotermo : termo '*' fatortermo : termo '/' fatortermo : fatorfator : NUMfator : IDfator : '(' expr ')'atr : ID '=' expr"
     
-_lr_action_items = {'$end':([0,1,2,3,5,6,8,16,],[-2,0,-4,-2,-1,-3,-5,-6,]),'INT':([0,3,8,16,],[4,4,-5,-6,]),'ID':([4,9,15,17,18,19,20,],[7,10,10,10,10,10,10,]),'.':([7,10,11,12,13,14,22,23,24,25,26,],[8,-14,16,-9,-12,-13,-7,-8,-10,-11,-15,]),'=':([7,],[9,]),'NUM':([9,15,17,18,19,20,],[14,14,14,14,14,14,]),'(':([9,15,17,18,19,20,],[15,15,15,15,15,15,]),'*':([10,12,13,14,22,23,24,25,26,],[-14,19,-12,-13,19,19,-10,-11,-15,]),'/':([10,12,13,14,22,23,24,25,26,],[-14,20,-12,-13,20,20,-10,-11,-15,]),'+':([10,11,12,13,14,21,22,23,24,25,26,],[-14,17,-9,-12,-13,17,-7,-8,-10,-11,-15,]),'-':([10,11,12,13,14,21,22,23,24,25,26,],[-14,18,-9,-12,-13,18,-7,-8,-10,-11,-15,]),')':([10,12,13,14,21,22,23,24,25,26,],[-14,-9,-12,-13,26,-7,-8,-10,-11,-15,]),}
+_lr_action_items = {'ID':([0,2,3,4,5,7,9,10,11,14,15,18,19,21,22,23,24,25,26,27,28,29,31,32,33,34,37,38,39,40,41,42,43,],[-4,6,12,-5,-2,16,12,-11,-12,-3,12,23,-13,-8,23,-21,-23,-16,-19,-20,23,23,23,23,23,23,-9,-14,-15,-17,-18,-22,-6,]),'INT':([0,2,4,5,21,37,43,],[-4,7,-5,7,-8,-9,-6,]),'INPUT':([0,2,3,4,5,9,10,11,14,15,19,21,23,24,25,26,27,37,38,39,40,41,42,43,],[-4,-2,13,-5,-2,13,-11,-12,-3,13,-13,-8,-21,-23,-16,-19,-20,-9,-14,-15,-17,-18,-22,-6,]),'$end':([0,1,2,3,4,5,8,9,10,11,14,17,19,21,23,24,25,26,27,37,38,39,40,41,42,43,],[-4,0,-2,-7,-5,-2,-1,-7,-11,-12,-3,-10,-13,-8,-21,-23,-16,-19,-20,-9,-14,-15,-17,-18,-22,-6,]),'begin':([6,],[15,]),'return':([9,10,11,15,17,19,20,23,24,25,26,27,38,39,40,41,42,],[-7,-11,-12,-7,-10,-13,29,-21,-23,-16,-19,-20,-14,-15,-17,-18,-22,]),'=':([12,16,],[18,22,]),'FRASE':([13,],[19,]),'.':([16,23,25,26,27,30,38,39,40,41,42,],[21,-21,-16,-19,-20,37,-14,-15,-17,-18,-22,]),'NUM':([18,22,28,29,31,32,33,34,],[27,27,27,27,27,27,27,27,]),'(':([18,22,28,29,31,32,33,34,],[28,28,28,28,28,28,28,28,]),'*':([23,25,26,27,38,39,40,41,42,],[-21,33,-19,-20,33,33,-17,-18,-22,]),'/':([23,25,26,27,38,39,40,41,42,],[-21,34,-19,-20,34,34,-17,-18,-22,]),'+':([23,24,25,26,27,30,35,36,38,39,40,41,42,],[-21,31,-16,-19,-20,31,31,31,-14,-15,-17,-18,-22,]),'-':([23,24,25,26,27,30,35,36,38,39,40,41,42,],[-21,32,-16,-19,-20,32,32,32,-14,-15,-17,-18,-22,]),')':([23,25,26,27,35,38,39,40,41,42,],[-21,-16,-19,-20,42,-14,-15,-17,-18,-22,]),'end':([23,25,26,27,36,38,39,40,41,42,],[-21,-16,-19,-20,43,-14,-15,-17,-18,-22,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'Programa':([0,],[1,]),'Vars':([0,3,],[2,6,]),'var':([0,3,],[3,3,]),'Cod':([2,],[5,]),'expr':([9,15,],[11,21,]),'termo':([9,15,17,18,],[12,12,22,23,]),'fator':([9,15,17,18,19,20,],[13,13,13,13,24,25,]),}
+_lr_goto_items = {'Programa':([0,],[1,]),'Funcs':([0,],[2,]),'Vars':([2,5,],[3,14,]),'Func':([2,],[4,]),'var':([2,5,],[5,5,]),'Cod':([3,9,15,],[8,17,20,]),'Linha':([3,9,15,],[9,9,9,]),'atr':([3,9,15,],[10,10,10,]),'Ler':([3,9,15,],[11,11,11,]),'expr':([18,22,28,29,],[24,30,35,36,]),'termo':([18,22,28,29,31,32,],[25,25,25,25,38,39,]),'fator':([18,22,28,29,31,32,33,34,],[26,26,26,26,26,26,40,41,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,19 +27,27 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> Programa","S'",1,None,None,None),
-  ('Programa -> Vars Cod','Programa',2,'p_Programa','linguagem_yacc.py',86),
-  ('Vars -> <empty>','Vars',0,'p_Vars_Empty','linguagem_yacc.py',91),
-  ('Vars -> var Vars','Vars',2,'p_Vars_Var','linguagem_yacc.py',95),
+  ('Programa -> Funcs Vars Cod','Programa',3,'p_Programa','linguagem_yacc.py',7),
+  ('Vars -> <empty>','Vars',0,'p_Vars_Empty','linguagem_yacc.py',90),
+  ('Vars -> var Vars','Vars',2,'p_Vars_Var','linguagem_yacc.py',94),
+  ('Funcs -> <empty>','Funcs',0,'p_Funcs_Empty','linguagem_yacc.py',101),
+  ('Funcs -> Funcs Func','Funcs',2,'p_Funcs_Func','linguagem_yacc.py',105),
+  ('Func -> ID begin Cod return expr end','Func',6,'p_Func','linguagem_yacc.py',109),
   ('Cod -> <empty>','Cod',0,'p_Cod_Empty','linguagem_yacc.py',115),
   ('var -> INT ID .','var',3,'p_var_tipoID','linguagem_yacc.py',119),
   ('var -> INT ID = expr .','var',5,'p_var_atribuicao','linguagem_yacc.py',127),
-  ('expr -> expr + termo','expr',3,'p_expr_add','linguagem_yacc.py',177),
-  ('expr -> expr - termo','expr',3,'p_expr_sub','linguagem_yacc.py',181),
-  ('expr -> termo','expr',1,'p_expr_termo','linguagem_yacc.py',185),
-  ('termo -> termo * fator','termo',3,'p_termo_mul','linguagem_yacc.py',189),
-  ('termo -> termo / fator','termo',3,'p_termo_div','linguagem_yacc.py',193),
-  ('termo -> fator','termo',1,'p_termo_fator','linguagem_yacc.py',197),
-  ('fator -> NUM','fator',1,'p_fator_NUM','linguagem_yacc.py',201),
-  ('fator -> ID','fator',1,'p_fator_ID','linguagem_yacc.py',205),
-  ('fator -> ( expr )','fator',3,'p_fator_expr','linguagem_yacc.py',213),
+  ('Cod -> Linha Cod','Cod',2,'p_Cod_linhas','linguagem_yacc.py',138),
+  ('Linha -> atr','Linha',1,'p_Linha_atr','linguagem_yacc.py',146),
+  ('Linha -> Ler','Linha',1,'p_Linha_Ler','linguagem_yacc.py',155),
+  ('Ler -> INPUT FRASE','Ler',2,'p_ler','linguagem_yacc.py',159),
+  ('expr -> expr + termo','expr',3,'p_expr_add','linguagem_yacc.py',181),
+  ('expr -> expr - termo','expr',3,'p_expr_sub','linguagem_yacc.py',185),
+  ('expr -> termo','expr',1,'p_expr_termo','linguagem_yacc.py',189),
+  ('termo -> termo * fator','termo',3,'p_termo_mul','linguagem_yacc.py',193),
+  ('termo -> termo / fator','termo',3,'p_termo_div','linguagem_yacc.py',197),
+  ('termo -> fator','termo',1,'p_termo_fator','linguagem_yacc.py',201),
+  ('fator -> NUM','fator',1,'p_fator_NUM','linguagem_yacc.py',205),
+  ('fator -> ID','fator',1,'p_fator_ID','linguagem_yacc.py',209),
+  ('fator -> ( expr )','fator',3,'p_fator_expr','linguagem_yacc.py',217),
+  ('atr -> ID = expr','atr',3,'p_atr','linguagem_yacc.py',221),
 ]

@@ -24,7 +24,9 @@ tokens = (
     'THEN',
     'ELSE',
     'WHILE',
-
+    'begin',
+    'return',
+    'end',
     'DO',
     'NUM',
     'ID',
@@ -60,6 +62,12 @@ t_THEN = r'then'
 t_ELSE = r'else'
 
 t_WHILE = r'while'
+
+t_begin = r'begin'
+
+t_return = r'return'
+
+t_end = r'end'
 
 t_DO = r'do'
 
