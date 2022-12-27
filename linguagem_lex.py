@@ -10,6 +10,7 @@ literals = ['+', '-', '*', '/', '=', '(', ')','.']
 tokens = (
     'TRUE',
     'FALSE',
+    'EQUAL',
     'INF',
     'INFEQ',
     'SUP',
@@ -36,6 +37,8 @@ tokens = (
 t_TRUE = r'true'
 
 t_FALSE = r'false'
+
+t_EQUAL = r'\=\='
 
 t_INF = r'\<'
 
@@ -75,7 +78,7 @@ t_ID = r'\w+'
 
 t_NUM = r'[0-9]+'
 
-t_FRASE = r'\".*\"'
+t_FRASE = r'\"[^\"]*\"'
 
 t_ANY_ignore = ' \n\t'
 

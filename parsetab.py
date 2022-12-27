@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "DO E ELSE FALSE FRASE ID IF INF INFEQ INPUT INT NUM OU PRINT SUP SUPEQ THEN TRUE WHILE begin end returnPrograma : Funcs Vars CodVars : Vars : var VarsFuncs : Funcs : Funcs FuncFunc : ID begin Cod return expr endCod : var : INT ID '.'var : INT ID '=' expr '.'Cod : Linha CodLinha : atrLinha : LerLer : INPUT FRASEexpr : expr '+' termoexpr : expr '-' termoexpr : termotermo : termo '*' fatortermo : termo '/' fatortermo : fatorfator : NUMfator : IDfator : '(' expr ')'atr : ID '=' expr"
+_lr_signature = "DO E ELSE EQUAL FALSE FRASE ID IF INF INFEQ INPUT INT NUM OU PRINT SUP SUPEQ THEN TRUE WHILE begin end returnPrograma : Vars Funcs Codcorpoescreve : corpoescreve : alter corpoescrevealter : FRASEalter : exprEscrever : PRINT corpoescreve '.'Vars : Vars : var VarsFuncs : Funcs : Funcs FuncFunc : ID begin Cod return expr endCod : var : INT ID '.'var : INT ID '=' expr '.'Cod : Linha CodLinha : EscreverLinha : atrLinha : LerLinha : condLer : ID '=' INPUT FRASE '.'bool : TRUEbool : FALSEcond : boolcond : exproprelacao : INFoprelacao : EQUALoprelacao : INFEQoprelacao : SUPoprelacao : SUPEQcond : expr oprelacao exprcond : cond E condcond : cond OU condexpr : expr '+' termoexpr : expr '-' termoexpr : termotermo : termo '*' fatortermo : termo '/' fatortermo : fatorfator : NUMfator : IDfator : '(' expr ')'atr : ID '=' expr '.'"
     
-_lr_action_items = {'ID':([0,2,3,4,5,7,9,10,11,14,15,18,19,21,22,23,24,25,26,27,28,29,31,32,33,34,37,38,39,40,41,42,43,],[-4,6,12,-5,-2,16,12,-11,-12,-3,12,23,-13,-8,23,-21,-23,-16,-19,-20,23,23,23,23,23,23,-9,-14,-15,-17,-18,-22,-6,]),'INT':([0,2,4,5,21,37,43,],[-4,7,-5,7,-8,-9,-6,]),'INPUT':([0,2,3,4,5,9,10,11,14,15,19,21,23,24,25,26,27,37,38,39,40,41,42,43,],[-4,-2,13,-5,-2,13,-11,-12,-3,13,-13,-8,-21,-23,-16,-19,-20,-9,-14,-15,-17,-18,-22,-6,]),'$end':([0,1,2,3,4,5,8,9,10,11,14,17,19,21,23,24,25,26,27,37,38,39,40,41,42,43,],[-4,0,-2,-7,-5,-2,-1,-7,-11,-12,-3,-10,-13,-8,-21,-23,-16,-19,-20,-9,-14,-15,-17,-18,-22,-6,]),'begin':([6,],[15,]),'return':([9,10,11,15,17,19,20,23,24,25,26,27,38,39,40,41,42,],[-7,-11,-12,-7,-10,-13,29,-21,-23,-16,-19,-20,-14,-15,-17,-18,-22,]),'=':([12,16,],[18,22,]),'FRASE':([13,],[19,]),'.':([16,23,25,26,27,30,38,39,40,41,42,],[21,-21,-16,-19,-20,37,-14,-15,-17,-18,-22,]),'NUM':([18,22,28,29,31,32,33,34,],[27,27,27,27,27,27,27,27,]),'(':([18,22,28,29,31,32,33,34,],[28,28,28,28,28,28,28,28,]),'*':([23,25,26,27,38,39,40,41,42,],[-21,33,-19,-20,33,33,-17,-18,-22,]),'/':([23,25,26,27,38,39,40,41,42,],[-21,34,-19,-20,34,34,-17,-18,-22,]),'+':([23,24,25,26,27,30,35,36,38,39,40,41,42,],[-21,31,-16,-19,-20,31,31,31,-14,-15,-17,-18,-22,]),'-':([23,24,25,26,27,30,35,36,38,39,40,41,42,],[-21,32,-16,-19,-20,32,32,32,-14,-15,-17,-18,-22,]),')':([23,25,26,27,35,38,39,40,41,42,],[-21,-16,-19,-20,42,-14,-15,-17,-18,-22,]),'end':([23,25,26,27,36,38,39,40,41,42,],[-21,-16,-19,-20,43,-14,-15,-17,-18,-22,]),}
+_lr_action_items = {'ID':([0,2,3,4,5,6,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,40,42,43,44,45,46,47,53,54,55,56,57,58,60,61,62,63,64,65,68,69,],[-7,-9,-7,7,11,-8,-10,28,-40,-24,-16,-17,-18,-19,45,-23,-21,-22,-35,-38,-39,45,-13,45,-40,28,45,45,45,45,-25,-26,-27,-28,-29,45,45,45,-4,-5,-40,45,45,-30,-33,-34,-31,-32,-6,-36,-37,-41,-14,45,-42,-20,-11,]),'PRINT':([0,2,3,5,6,9,10,11,12,13,14,15,16,18,19,20,21,22,23,25,28,29,45,53,54,55,56,57,58,60,61,62,63,65,68,69,],[-7,-9,-7,17,-8,-10,17,-40,-24,-16,-17,-18,-19,-23,-21,-22,-35,-38,-39,-13,-40,17,-40,-30,-33,-34,-31,-32,-6,-36,-37,-41,-14,-42,-20,-11,]),'TRUE':([0,2,3,5,6,9,10,11,12,13,14,15,16,18,19,20,21,22,23,25,28,29,39,40,45,53,54,55,56,57,58,60,61,62,63,65,68,69,],[-7,-9,-7,19,-8,-10,19,-40,-24,-16,-17,-18,-19,-23,-21,-22,-35,-38,-39,-13,-40,19,19,19,-40,-30,-33,-34,-31,-32,-6,-36,-37,-41,-14,-42,-20,-11,]),'FALSE':([0,2,3,5,6,9,10,11,12,13,14,15,16,18,19,20,21,22,23,25,28,29,39,40,45,53,54,55,56,57,58,60,61,62,63,65,68,69,],[-7,-9,-7,20,-8,-10,20,-40,-24,-16,-17,-18,-19,-23,-21,-22,-35,-38,-39,-13,-40,20,20,20,-40,-30,-33,-34,-31,-32,-6,-36,-37,-41,-14,-42,-20,-11,]),'NUM':([0,2,3,5,6,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,40,42,43,44,45,46,47,53,54,55,56,57,58,60,61,62,63,64,65,68,69,],[-7,-9,-7,23,-8,-10,23,-40,-24,-16,-17,-18,-19,23,-23,-21,-22,-35,-38,-39,23,-13,23,-40,23,23,23,23,23,-25,-26,-27,-28,-29,23,23,23,-4,-5,-40,23,23,-30,-33,-34,-31,-32,-6,-36,-37,-41,-14,23,-42,-20,-11,]),'(':([0,2,3,5,6,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,39,40,42,43,44,45,46,47,53,54,55,56,57,58,60,61,62,63,64,65,68,69,],[-7,-9,-7,24,-8,-10,24,-40,-24,-16,-17,-18,-19,24,-23,-21,-22,-35,-38,-39,24,-13,24,-40,24,24,24,24,24,-25,-26,-27,-28,-29,24,24,24,-4,-5,-40,24,24,-30,-33,-34,-31,-32,-6,-36,-37,-41,-14,24,-42,-20,-11,]),'$end':([0,1,2,3,5,6,8,9,10,11,12,13,14,15,16,18,19,20,21,22,23,25,27,28,45,53,54,55,56,57,58,60,61,62,63,65,68,69,],[-7,0,-9,-7,-12,-8,-1,-10,-12,-40,-24,-16,-17,-18,-19,-23,-21,-22,-35,-38,-39,-13,-15,-40,-40,-30,-33,-34,-31,-32,-6,-36,-37,-41,-14,-42,-20,-11,]),'INT':([0,3,25,63,],[4,4,-13,-14,]),'.':([7,17,21,22,23,41,42,43,44,45,49,51,54,55,59,60,61,62,66,],[25,-2,-35,-38,-39,58,-2,-4,-5,-40,63,65,-33,-34,-3,-36,-37,-41,68,]),'=':([7,11,28,],[26,30,30,]),'return':([10,12,13,14,15,16,18,19,20,21,22,23,27,28,29,45,50,53,54,55,56,57,58,60,61,62,65,68,],[-12,-24,-16,-17,-18,-19,-23,-21,-22,-35,-38,-39,-15,-40,-12,-40,64,-30,-33,-34,-31,-32,-6,-36,-37,-41,-42,-20,]),'begin':([11,],[29,]),'*':([11,21,22,23,28,45,54,55,60,61,62,],[-40,46,-38,-39,-40,-40,46,46,-36,-37,-41,]),'/':([11,21,22,23,28,45,54,55,60,61,62,],[-40,47,-38,-39,-40,-40,47,47,-36,-37,-41,]),'+':([11,12,21,22,23,28,44,45,48,49,51,53,54,55,60,61,62,67,],[-40,32,-35,-38,-39,-40,32,-40,32,32,32,32,-33,-34,-36,-37,-41,32,]),'-':([11,12,21,22,23,28,44,45,48,49,51,53,54,55,60,61,62,67,],[-40,33,-35,-38,-39,-40,33,-40,33,33,33,33,-33,-34,-36,-37,-41,33,]),'INF':([11,12,21,22,23,28,45,54,55,60,61,62,],[-40,34,-35,-38,-39,-40,-40,-33,-34,-36,-37,-41,]),'EQUAL':([11,12,21,22,23,28,45,54,55,60,61,62,],[-40,35,-35,-38,-39,-40,-40,-33,-34,-36,-37,-41,]),'INFEQ':([11,12,21,22,23,28,45,54,55,60,61,62,],[-40,36,-35,-38,-39,-40,-40,-33,-34,-36,-37,-41,]),'SUP':([11,12,21,22,23,28,45,54,55,60,61,62,],[-40,37,-35,-38,-39,-40,-40,-33,-34,-36,-37,-41,]),'SUPEQ':([11,12,21,22,23,28,45,54,55,60,61,62,],[-40,38,-35,-38,-39,-40,-40,-33,-34,-36,-37,-41,]),'E':([11,12,16,18,19,20,21,22,23,28,45,53,54,55,56,57,60,61,62,],[-40,-24,39,-23,-21,-22,-35,-38,-39,-40,-40,-30,-33,-34,39,39,-36,-37,-41,]),'OU':([11,12,16,18,19,20,21,22,23,28,45,53,54,55,56,57,60,61,62,],[-40,-24,40,-23,-21,-22,-35,-38,-39,-40,-40,-30,-33,-34,40,40,-36,-37,-41,]),'FRASE':([17,21,22,23,42,43,44,45,52,54,55,60,61,62,],[43,-35,-38,-39,43,-4,-5,-40,66,-33,-34,-36,-37,-41,]),')':([21,22,23,45,48,54,55,60,61,62,],[-35,-38,-39,-40,62,-33,-34,-36,-37,-41,]),'end':([21,22,23,45,54,55,60,61,62,67,],[-35,-38,-39,-40,-33,-34,-36,-37,-41,69,]),'INPUT':([30,],[52,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'Programa':([0,],[1,]),'Funcs':([0,],[2,]),'Vars':([2,5,],[3,14,]),'Func':([2,],[4,]),'var':([2,5,],[5,5,]),'Cod':([3,9,15,],[8,17,20,]),'Linha':([3,9,15,],[9,9,9,]),'atr':([3,9,15,],[10,10,10,]),'Ler':([3,9,15,],[11,11,11,]),'expr':([18,22,28,29,],[24,30,35,36,]),'termo':([18,22,28,29,31,32,],[25,25,25,25,38,39,]),'fator':([18,22,28,29,31,32,33,34,],[26,26,26,26,26,26,40,41,]),}
+_lr_goto_items = {'Programa':([0,],[1,]),'Vars':([0,3,],[2,6,]),'var':([0,3,],[3,3,]),'Funcs':([2,],[5,]),'Cod':([5,10,29,],[8,27,50,]),'Func':([5,],[9,]),'Linha':([5,10,29,],[10,10,10,]),'expr':([5,10,17,24,26,29,30,31,39,40,42,64,],[12,12,44,48,49,12,51,53,12,12,44,67,]),'Escrever':([5,10,29,],[13,13,13,]),'atr':([5,10,29,],[14,14,14,]),'Ler':([5,10,29,],[15,15,15,]),'cond':([5,10,29,39,40,],[16,16,16,56,57,]),'bool':([5,10,29,39,40,],[18,18,18,18,18,]),'termo':([5,10,17,24,26,29,30,31,32,33,39,40,42,64,],[21,21,21,21,21,21,21,21,54,55,21,21,21,21,]),'fator':([5,10,17,24,26,29,30,31,32,33,39,40,42,46,47,64,],[22,22,22,22,22,22,22,22,22,22,22,22,22,60,61,22,]),'oprelacao':([12,],[31,]),'corpoescreve':([17,42,],[41,59,]),'alter':([17,42,],[42,42,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,27 +27,46 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> Programa","S'",1,None,None,None),
-  ('Programa -> Funcs Vars Cod','Programa',3,'p_Programa','linguagem_yacc.py',7),
-  ('Vars -> <empty>','Vars',0,'p_Vars_Empty','linguagem_yacc.py',90),
-  ('Vars -> var Vars','Vars',2,'p_Vars_Var','linguagem_yacc.py',94),
-  ('Funcs -> <empty>','Funcs',0,'p_Funcs_Empty','linguagem_yacc.py',101),
-  ('Funcs -> Funcs Func','Funcs',2,'p_Funcs_Func','linguagem_yacc.py',105),
-  ('Func -> ID begin Cod return expr end','Func',6,'p_Func','linguagem_yacc.py',109),
-  ('Cod -> <empty>','Cod',0,'p_Cod_Empty','linguagem_yacc.py',115),
-  ('var -> INT ID .','var',3,'p_var_tipoID','linguagem_yacc.py',119),
-  ('var -> INT ID = expr .','var',5,'p_var_atribuicao','linguagem_yacc.py',127),
-  ('Cod -> Linha Cod','Cod',2,'p_Cod_linhas','linguagem_yacc.py',138),
-  ('Linha -> atr','Linha',1,'p_Linha_atr','linguagem_yacc.py',146),
-  ('Linha -> Ler','Linha',1,'p_Linha_Ler','linguagem_yacc.py',155),
-  ('Ler -> INPUT FRASE','Ler',2,'p_ler','linguagem_yacc.py',159),
-  ('expr -> expr + termo','expr',3,'p_expr_add','linguagem_yacc.py',181),
-  ('expr -> expr - termo','expr',3,'p_expr_sub','linguagem_yacc.py',185),
-  ('expr -> termo','expr',1,'p_expr_termo','linguagem_yacc.py',189),
-  ('termo -> termo * fator','termo',3,'p_termo_mul','linguagem_yacc.py',193),
-  ('termo -> termo / fator','termo',3,'p_termo_div','linguagem_yacc.py',197),
-  ('termo -> fator','termo',1,'p_termo_fator','linguagem_yacc.py',201),
-  ('fator -> NUM','fator',1,'p_fator_NUM','linguagem_yacc.py',205),
-  ('fator -> ID','fator',1,'p_fator_ID','linguagem_yacc.py',209),
-  ('fator -> ( expr )','fator',3,'p_fator_expr','linguagem_yacc.py',217),
-  ('atr -> ID = expr','atr',3,'p_atr','linguagem_yacc.py',221),
+  ('Programa -> Vars Funcs Cod','Programa',3,'p_Programa','linguagem_yacc.py',7),
+  ('corpoescreve -> <empty>','corpoescreve',0,'p_corpoescreve_null','linguagem_yacc.py',15),
+  ('corpoescreve -> alter corpoescreve','corpoescreve',2,'p_corpoescreve_alter','linguagem_yacc.py',19),
+  ('alter -> FRASE','alter',1,'p_alter_frase','linguagem_yacc.py',23),
+  ('alter -> expr','alter',1,'p_alter_expr','linguagem_yacc.py',28),
+  ('Escrever -> PRINT corpoescreve .','Escrever',3,'p_Escrever','linguagem_yacc.py',32),
+  ('Vars -> <empty>','Vars',0,'p_Vars_Empty','linguagem_yacc.py',46),
+  ('Vars -> var Vars','Vars',2,'p_Vars_Var','linguagem_yacc.py',50),
+  ('Funcs -> <empty>','Funcs',0,'p_Funcs_Empty','linguagem_yacc.py',57),
+  ('Funcs -> Funcs Func','Funcs',2,'p_Funcs_Func','linguagem_yacc.py',61),
+  ('Func -> ID begin Cod return expr end','Func',6,'p_Func','linguagem_yacc.py',65),
+  ('Cod -> <empty>','Cod',0,'p_Cod_Empty','linguagem_yacc.py',72),
+  ('var -> INT ID .','var',3,'p_var_tipoID','linguagem_yacc.py',76),
+  ('var -> INT ID = expr .','var',5,'p_var_atribuicao','linguagem_yacc.py',84),
+  ('Cod -> Linha Cod','Cod',2,'p_Cod_linhas','linguagem_yacc.py',92),
+  ('Linha -> Escrever','Linha',1,'p_Linha_Escrever','linguagem_yacc.py',96),
+  ('Linha -> atr','Linha',1,'p_Linha_atr','linguagem_yacc.py',100),
+  ('Linha -> Ler','Linha',1,'p_Linha_Ler','linguagem_yacc.py',109),
+  ('Linha -> cond','Linha',1,'p_Linha_Cond','linguagem_yacc.py',114),
+  ('Ler -> ID = INPUT FRASE .','Ler',5,'p_ler','linguagem_yacc.py',119),
+  ('bool -> TRUE','bool',1,'p_bool_true','linguagem_yacc.py',142),
+  ('bool -> FALSE','bool',1,'p_bool_false','linguagem_yacc.py',146),
+  ('cond -> bool','cond',1,'p_cond_bool','linguagem_yacc.py',150),
+  ('cond -> expr','cond',1,'p_cond_expr','linguagem_yacc.py',154),
+  ('oprelacao -> INF','oprelacao',1,'p_oprelacao_inf','linguagem_yacc.py',158),
+  ('oprelacao -> EQUAL','oprelacao',1,'p_oprelacao_EQUALS','linguagem_yacc.py',162),
+  ('oprelacao -> INFEQ','oprelacao',1,'p_oprelacao_infeq','linguagem_yacc.py',166),
+  ('oprelacao -> SUP','oprelacao',1,'p_oprelacao_sup','linguagem_yacc.py',170),
+  ('oprelacao -> SUPEQ','oprelacao',1,'p_oprelacao_supeq','linguagem_yacc.py',174),
+  ('cond -> expr oprelacao expr','cond',3,'p_cond_oprelacao','linguagem_yacc.py',178),
+  ('cond -> cond E cond','cond',3,'p_cond_e','linguagem_yacc.py',182),
+  ('cond -> cond OU cond','cond',3,'p_cond_ou','linguagem_yacc.py',186),
+  ('expr -> expr + termo','expr',3,'p_expr_add','linguagem_yacc.py',190),
+  ('expr -> expr - termo','expr',3,'p_expr_sub','linguagem_yacc.py',194),
+  ('expr -> termo','expr',1,'p_expr_termo','linguagem_yacc.py',198),
+  ('termo -> termo * fator','termo',3,'p_termo_mul','linguagem_yacc.py',202),
+  ('termo -> termo / fator','termo',3,'p_termo_div','linguagem_yacc.py',206),
+  ('termo -> fator','termo',1,'p_termo_fator','linguagem_yacc.py',210),
+  ('fator -> NUM','fator',1,'p_fator_NUM','linguagem_yacc.py',214),
+  ('fator -> ID','fator',1,'p_fator_ID','linguagem_yacc.py',218),
+  ('fator -> ( expr )','fator',3,'p_fator_expr','linguagem_yacc.py',226),
+  ('atr -> ID = expr .','atr',4,'p_atr','linguagem_yacc.py',230),
 ]

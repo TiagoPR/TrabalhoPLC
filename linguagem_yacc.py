@@ -4,84 +4,40 @@ import sys
 from linguagem_lex import tokens
 
 def p_Programa(p):
-    "Programa : Funcs Vars Cod"
+    "Programa : Vars Funcs Cod"
     parser.assembly = f'START\n{p[1]}{p[2]}{p[3]}STOP'
-#Breno ----------------------------------------------------------------------------------------------------------------
 
 ## TEMA DE DISCUSSÃO ADICIONAR NOT NAS OPRELACAO ??????????????  , o Cond ta certo de fato ele retorna ?????????
-'''
-def p_bool_true(p):
-    "bool : TRUE"
-    p[0] = f'PUSHI 1'
 
-def p_bool_false(p):
-    "bool : FALSE"
-    p[0] = f'PUSHI 0'
 
-def p_cond_bool(p):
-    "cond : bool"
-    p[0] = f'{p[1]}\n NOT\n pushi 0\n EQUALS\n'
 
-def p_cond_expr(p):
-    "cond : expr"
-    p[0] = f'{p[1]}\npushi 0\n sup\n'
-
-def p_oprelacao_inf(p):
-    "oprelacao : INF"
-    p[0] = 'inf'
-
-def p_oprelacao_infeq(p):
-    "oprelacao : INFEQ"
-    p[0] = 'infeq'
-
-def p_oprelacao_sup(p):
-    "oprelacao : SUP"
-    p[0] = 'sup'
-
-def p_oprelacao_supeq(p):
-    "oprelacao : SUPEQ"
-    p[0] = 'supeq'
-
-def p_cond_oprelacao(p):
-    "cond : expr oprelacao expr"
-    p[0] = f' {p[1]}\n{p[3]}\n{p[2]}'
-
-def p_cond_e(p):
-    "cond : cond E cond"
-    p[0] = f'{p[1]}\n{p[3]}\nadd\npushi 2\nequal\n'
-
-def p_cond_ou(p):
-    "cond : cond OU cond"
-    p[0] = f'pushi{p[1]}\npushi{p[3]}\nadd\npushi 0\nsup\n'
-'''
-
-'''
-def p_escreva(p):
-    "escreva : PRINT corpoescreve"
-    p[0] = f"{p[2]}"
-def p_corpoescreve_alter(p):
-    "corpoescreve : alter corpoescreve"
-    p[0] = f'{p[0]}\n{p[1]}'
-    
 def p_corpoescreve_null(p):
     "corpoescreve : "
     p[0] = f''
 
+def p_corpoescreve_alter(p):
+    "corpoescreve : alter corpoescreve"
+    p[0] = f'{p[1]}\n{p[2]}'
+
 def p_alter_frase(p):
     "alter : FRASE"
-    p[0] = f'pushs {p[1]}'
+    p[0] = f'pushs {p[1]}\nWRITES'
 
-def p_alter_frase(p):
+
+def p_alter_expr(p):
     "alter : expr"
-    p[0] = f'writei {p[1]}'
+    p[0] = f'{p[1]}WRITEI'
+
+def p_Escrever(p):
+    "Escrever : PRINT corpoescreve '.'"
+    p[0] = f"{p[2]}"
 
 
+'''
 def p_ciclo(p):
     "while : WHILE Cond DO Corpo "
     p[0] = f'l{p.parser.labels}c: NOP\n{p[2]}JZ l{p.parser.labels}f\n{p[4]}JUMP l{p.parser.labels}c\nl{p.parser.labels}f: NOP\n'
     p.parser.labels += 1
-    
-# Tiago ----------------------------------------------------------------------
 '''
 
 
@@ -108,6 +64,7 @@ def p_Funcs_Func(p):
 def p_Func(p):
     "Func : ID begin Cod return expr end"
     p[0] = f'{p[1]}:\n{p[2]}\nret'
+    #Fazer função
 
 
 
@@ -130,17 +87,14 @@ def p_var_atribuicao(p):
     parser.pc += 1
     p[0] = f"{p[4]}"
 
-#def p_Cod_linha(p):
-#    "Cod : Linha"
-#    p[0] = f'{p[0]}'
 
 def p_Cod_linhas(p):
     "Cod : Linha Cod"
-    p[0] = f'{p[0]} {p[1]}'
+    p[0] = f'{p[1]} {p[2]}'
 
-#def p_Linha_Escrever(p):
-#    "Linha : Escrever"
-#    p[0] = p[1]
+def p_Linha_Escrever(p):
+    "Linha : Escrever"
+    p[0] = p[1]
 
 def p_Linha_atr(p):
     "Linha : atr"
@@ -149,15 +103,22 @@ def p_Linha_atr(p):
 
 #def p_Linha_empty(p):
 #    "Linha : "
-#    p[0] = f''
+#    p[0] = f' '
 
 def p_Linha_Ler(p):
     "Linha : Ler"
     p[0] = p[1]
 
+
+def p_Linha_Cond(p):
+    "Linha : cond"
+    p[0] = f'{p[1]}\n'
+
+
 def p_ler(p):
-    "Ler : INPUT FRASE"
-    p[0] = f"pushs {p[2]}\nread\natoi"
+    "Ler : ID '=' INPUT FRASE '.'"
+    p[0] = f"pushs {p[4]}\nWRITES\nread\natoi\nstoreg {parser.table[p[1]]}\n"
+
 
 #def p_Linha_Se(p):
 #    "Linha : SE"
@@ -174,8 +135,56 @@ def p_ler(p):
 #    "SE : IF cond THEN Cod ELSE Cod"
 #    p[0] = f"PUSHI{p[2]} JZ p1{p.parser.labels}\n {p[3]} JUMP fim{p.parser.labels}\n p1{p.parser.labels}\n {p[5]} fim{p.parser.labels}"
 #    p.parser.labels += 1
-'''
-'''
+#GRAMMAR - SyntaxError: Expected ":" but "\r" found.
+
+def p_bool_true(p):
+    "bool : TRUE"
+    p[0] = f'PUSHI 1'
+
+def p_bool_false(p):
+    "bool : FALSE"
+    p[0] = f'PUSHI 0'
+
+def p_cond_bool(p):
+    "cond : bool"
+    p[0] = f'{p[1]}'
+
+
+def p_cond_expr(p):
+    "cond : expr"
+    p[0] = f'{p[1]}pushi 0\nsup'
+
+def p_oprelacao_inf(p):
+    "oprelacao : INF"
+    p[0] = 'inf'
+
+def p_oprelacao_EQUALS(p):
+    "oprelacao : EQUAL"
+    p[0] = 'EQUALS'
+
+def p_oprelacao_infeq(p):
+    "oprelacao : INFEQ"
+    p[0] = 'infeq'
+
+def p_oprelacao_sup(p):
+    "oprelacao : SUP"
+    p[0] = 'sup'
+
+def p_oprelacao_supeq(p):
+    "oprelacao : SUPEQ"
+    p[0] = 'supeq'
+
+def p_cond_oprelacao(p):
+    "cond : expr oprelacao expr"
+    p[0] = f'{p[1]}{p[3]}{p[2]}'
+
+def p_cond_e(p):
+    "cond : cond E cond"
+    p[0] = f'{p[1]}\n{p[3]}\nadd\npushi 2\nequal'
+
+def p_cond_ou(p):
+    "cond : cond OU cond"
+    p[0] = f'{p[1]}\n{p[3]}\nadd\npushi 0\nsup'
 
 def p_expr_add(p):
     "expr : expr '+' termo"
@@ -218,8 +227,9 @@ def p_fator_expr(p):
     p[0] = p[2]
 
 def p_atr(p):
-    "atr : ID '=' expr"
-    p[0] = f'{p[3]}\nstoreg{parser.table[p[1]]}'
+    "atr : ID '=' expr '.'"
+    p[0] = f'{p[3]}storeg {parser.table[p[1]]}\n'
+
 
 def p_error(p):
     print("Syntax error:", p)
