@@ -1,13 +1,15 @@
 import re
 import ply.lex as lex
+import sys
 
 # states = [
 #    ('VALUE', 'exclusive')
 # ]
 
-literals = ['+', '-', '*', '/', '=', '(', ')','.']
+literals = ['+', '-', '*', '/', '=', '(', ')','.','!']
 
 tokens = (
+    'IF',
     'TRUE',
     'FALSE',
     'EQUAL',
@@ -18,10 +20,8 @@ tokens = (
     'INPUT',
     'PRINT',
     'INT',
-
     'OU',
     'E',
-    'IF',
     'THEN',
     'ELSE',
     'WHILE',
@@ -34,6 +34,7 @@ tokens = (
     'FRASE',
 
 )
+
 t_TRUE = r'true'
 
 t_FALSE = r'false'
@@ -58,8 +59,6 @@ t_OU = r'\|'
 
 t_E = r'\^'
 
-t_IF = r'if'
-
 t_THEN = r'then'
 
 t_ELSE = r'else'
@@ -72,8 +71,6 @@ t_return = r'return'
 
 t_end = r'end'
 
-t_DO = r'do'
-
 t_ID = r'\w+'
 
 t_NUM = r'[0-9]+'
@@ -82,6 +79,13 @@ t_FRASE = r'\"[^\"]*\"'
 
 t_ANY_ignore = ' \n\t'
 
+def t_IF(t):
+    r'if'
+    return t
+
+def t_DO(t):
+    r'do'
+    return t
 
 def t_ANY_error(t):
     print('Illegal character: %s', t.value[0])
@@ -90,3 +94,6 @@ def t_ANY_error(t):
 # lexer = lex.lex()
 # lexer = lex.lex(reflags=re.UNICODE)
 lexer = lex.lex(reflags=re.IGNORECASE)
+
+
+

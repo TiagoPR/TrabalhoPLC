@@ -7,9 +7,9 @@ def p_Programa(p):
     "Programa : Vars Funcs Cod"
     parser.assembly = f'START\n{p[1]}{p[2]}{p[3]}STOP'
 
-## TEMA DE DISCUSSÃO ADICIONAR NOT NAS OPRELACAO ??????????????  , o Cond ta certo de fato ele retorna ?????????
-
-
+def p_Escrever(p):
+    "Escrever : PRINT corpoescreve '.'"
+    p[0] = f"{p[2]}"
 
 def p_corpoescreve_null(p):
     "corpoescreve : "
@@ -28,19 +28,6 @@ def p_alter_expr(p):
     "alter : expr"
     p[0] = f'{p[1]}WRITEI'
 
-def p_Escrever(p):
-    "Escrever : PRINT corpoescreve '.'"
-    p[0] = f"{p[2]}"
-
-
-'''
-def p_ciclo(p):
-    "while : WHILE Cond DO Corpo "
-    p[0] = f'l{p.parser.labels}c: NOP\n{p[2]}JZ l{p.parser.labels}f\n{p[4]}JUMP l{p.parser.labels}c\nl{p.parser.labels}f: NOP\n'
-    p.parser.labels += 1
-'''
-
-
 
 def p_Vars_Empty(p):
     "Vars : "
@@ -50,9 +37,6 @@ def p_Vars_Var(p):
     "Vars : var Vars"
     p[0] = f'{p[1]}{p[2]}'
 
-#def p_Funcs_Empty(p):
-#    "Funcs : "
-#    p[0] = f''
 def p_Funcs_Empty(p):
     "Funcs : "
     p[0] = f''
@@ -62,11 +46,8 @@ def p_Funcs_Func(p):
     p[0] = f'{p[1]}\n{p[2]}'
 
 def p_Func(p):
-    "Func : ID begin Cod return expr end"
-    p[0] = f'{p[1]}:\n{p[2]}\nret'
-    #Fazer função
-
-
+    "Func : ID begin Cod end"
+    p[0] = f'{p[1]}:\n{p[3]}\nreturn\n'
 
 def p_Cod_Empty(p):
     "Cod : "
@@ -87,7 +68,6 @@ def p_var_atribuicao(p):
     parser.pc += 1
     p[0] = f"{p[4]}"
 
-
 def p_Cod_linhas(p):
     "Cod : Linha Cod"
     p[0] = f'{p[1]} {p[2]}'
@@ -100,7 +80,6 @@ def p_Linha_atr(p):
     "Linha : atr"
     p[0] = p[1]
 
-
 #def p_Linha_empty(p):
 #    "Linha : "
 #    p[0] = f' '
@@ -109,33 +88,35 @@ def p_Linha_Ler(p):
     "Linha : Ler"
     p[0] = p[1]
 
-
 def p_Linha_Cond(p):
     "Linha : cond"
     p[0] = f'{p[1]}\n'
 
+def p_Linha_Se(p):
+    'Linha : SE'
+    p[0] = p[1]
+
+def p_Se(p):
+    'SE : IF cond THEN Cod ELSE Cod '
+    p[0] = f'{p[2]}JZ l{p.parser.labels}\n{p[4]}JUMP l{p.parser.labels}f\nl{p.parser.labels}: NOP\n{p[6]}l{p.parser.labels}f: NOP\n'
+    p.parser.labels += 1
 
 def p_ler(p):
     "Ler : ID '=' INPUT FRASE '.'"
     p[0] = f"pushs {p[4]}\nWRITES\nread\natoi\nstoreg {parser.table[p[1]]}\n"
 
+def p_Linha_Ciclo(p):
+    "Linha : Ciclo"
+    p[0] = p[1]
+#fazer de maneirad
+def p_ciclo(p):
+    "Ciclo : WHILE cond DO Cod "
+    p[0] = f'l{p.parser.labels}c: \n{p[2]}\nJZ l{p.parser.labels}f\n{p[4]}JUMP l{p.parser.labels}c\nl{p.parser.labels}f: \n'
+    p.parser.labels += 1
 
-#def p_Linha_Se(p):
-#    "Linha : SE"
-#    p[0] = p[1]
-
-#def p_Linha_Ciclo(p):
-#    "Linha : Ciclo"
-#    p[0] = p[1]
-
-
-#---------------------------------------------------- Tales
-
-#def p_SE(p):
-#    "SE : IF cond THEN Cod ELSE Cod"
-#    p[0] = f"PUSHI{p[2]} JZ p1{p.parser.labels}\n {p[3]} JUMP fim{p.parser.labels}\n p1{p.parser.labels}\n {p[5]} fim{p.parser.labels}"
-#    p.parser.labels += 1
-#GRAMMAR - SyntaxError: Expected ":" but "\r" found.
+def p_atr(p):
+    "atr : ID '=' expr '.'"
+    p[0] = f'{p[3]}storeg {parser.table[p[1]]}\n'
 
 def p_bool_true(p):
     "bool : TRUE"
@@ -148,7 +129,6 @@ def p_bool_false(p):
 def p_cond_bool(p):
     "cond : bool"
     p[0] = f'{p[1]}'
-
 
 def p_cond_expr(p):
     "cond : expr"
@@ -218,18 +198,13 @@ def p_fator_ID(p):
     "fator : ID"
     p[0] = f'PUSHG {parser.table[p[1]]}\n'
 
-#def p_fator_func(p):
-#    "fator : func"
-#    p[0] = p[1]
+def p_fator_func(p):
+    "fator : func '('')'"
+    p[0] = p[1]
 
 def p_fator_expr(p):
     "fator : '(' expr ')'"
     p[0] = p[2]
-
-def p_atr(p):
-    "atr : ID '=' expr '.'"
-    p[0] = f'{p[3]}storeg {parser.table[p[1]]}\n'
-
 
 def p_error(p):
     print("Syntax error:", p)
@@ -239,6 +214,8 @@ def p_error(p):
 parser = yacc.yacc()
 parser.table = {}
 parser.pc = 0
+
+
 
 parser.sucesso = True
 parser.assembly = ""
