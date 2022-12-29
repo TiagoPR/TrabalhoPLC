@@ -116,7 +116,7 @@ def p_Linha_Ciclo(p):
 #fazer de maneirad
 def p_ciclo(p):
     "Ciclo : WHILE cond DO Cod "
-    p[0] = f'l{p.parser.labels}c: \n{p[2]}\nJZ l{p.parser.labels}f\n{p[4]}JUMP l{p.parser.labels}c\nl{p.parser.labels}f: \n'
+    p[0] = f'comeco{p.parser.labels}: \n{p[2]}\nJZ terminar{p.parser.labels}\n{p[4]}JUMP comeco{p.parser.labels}\nterminar{p.parser.labels}: \n'
     p.parser.labels += 1
 
 def p_atr(p):
