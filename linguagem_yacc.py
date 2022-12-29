@@ -2,10 +2,11 @@ import ply.yacc as yacc
 import sys
 
 from linguagem_lex import tokens
-
+PUSHI 0 SUP PQQQQQQQQQQQQqq
+TODO ATRIBUIR BOOLEANO
 def p_Programa(p):
     "Programa : Vars Funcs Cod"
-    parser.assembly = f'START\n{p[1]}{p[2]}{p[3]}STOP'
+    parser.assembly = f'START\n{p[1]}{p[3]}STOP\n{p[2]}'
 
 def p_Escrever(p):
     "Escrever : PRINT corpoescreve '.'"
@@ -45,8 +46,12 @@ def p_Funcs_Func(p):
     "Funcs : Funcs Func"
     p[0] = f'{p[1]}\n{p[2]}'
 
+def p_Func_comRETURN(p):
+    "Func : ID begin Cod end return expr '.'"
+    p[0] = f'{p[1]}:\n{p[3]}\n{p[6]}return\n'
+
 def p_Func(p):
-    "Func : ID begin Cod end"
+    "Func : ID begin Cod end '.'"
     p[0] = f'{p[1]}:\n{p[3]}\nreturn\n'
 
 def p_Cod_Empty(p):
@@ -194,13 +199,14 @@ def p_fator_NUM(p):
     "fator : NUM"
     p[0] = f"PUSHI {p[1]}\n"
 
+def p_fator_func(p):
+    "fator : ID '(' ')' '.'"
+    p[0] = f'pusha {p[1]}\nCALL\n'
+
 def p_fator_ID(p):
     "fator : ID"
     p[0] = f'PUSHG {parser.table[p[1]]}\n'
 
-def p_fator_func(p):
-    "fator : func '('')'"
-    p[0] = p[1]
 
 def p_fator_expr(p):
     "fator : '(' expr ')'"
