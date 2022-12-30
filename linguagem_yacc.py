@@ -88,10 +88,6 @@ def p_linha_func(p):
     "Linha : ID '(' ')' '.'"
     p[0] = f'pusha {p[1]}\nCALL\n'
 
-#def p_Linha_empty(p):
-#    "Linha : "
-#    p[0] = f' '
-
 def p_Linha_Ler(p):
     "Linha : Ler"
     p[0] = p[1]
@@ -104,10 +100,15 @@ def p_Linha_Se(p):
     'Linha : SE'
     p[0] = p[1]
 
-def p_Se(p):
+def p_se_else(p):
     'SE : IF cond THEN Cod ELSE Cod '
     p[0] = f'{p[2]}JZ l{p.parser.labels}\n{p[4]}JUMP l{p.parser.labels}f\nl{p.parser.labels}: NOP\n{p[6]}l{p.parser.labels}f: NOP\n'
     p.parser.labels += 1
+
+#def p_se_then(p):
+   # 'SE : IF cond THEN Cod '
+   # p[0] = f'{p[2]}JZ l{p.parser.labels}\n{p[4]}JUMP l{p.parser.labels}f\nl{p.parser.labels}: NOP\n{p[6]}l{p.parser.labels}f: NOP\n'
+   # p.parser.labels += 1
 
 def p_ler(p):
     "Ler : ID '=' INPUT FRASE '.'"
@@ -116,9 +117,9 @@ def p_ler(p):
 def p_Linha_Ciclo(p):
     "Linha : Ciclo"
     p[0] = p[1]
-#fazer de maneirad
+
 def p_ciclo(p):
-    "Ciclo : WHILE cond DO Cod "
+    "Ciclo : WHILE cond DO Cod end WHILE '.'"
     p[0] = f'comeco{p.parser.labels}: \n{p[2]}\nJZ terminar{p.parser.labels}\n{p[4]}JUMP comeco{p.parser.labels}\nterminar{p.parser.labels}: \n'
     p.parser.labels += 1
 
@@ -140,7 +141,6 @@ def p_cond_bool(p):
 
 def p_cond_expr(p):
     "cond : expr"
-    print("oi")
     p[0] = f'{p[1]}pushi 0\nsup'
 
 def p_oprelacao_inf(p):
@@ -149,7 +149,11 @@ def p_oprelacao_inf(p):
 
 def p_oprelacao_EQUALS(p):
     "oprelacao : EQUAL"
-    p[0] = 'EQUALS'
+    p[0] = 'EQUAL\n'
+
+def p_oprelacao_DIFF(p):
+    "oprelacao : DIFF"
+    p[0] = 'EQUAL\nNOT\n'
 
 def p_oprelacao_infeq(p):
     "oprelacao : INFEQ"
@@ -222,8 +226,6 @@ parser = yacc.yacc()
 parser.table = {}
 parser.pc = 0
 
-
-
 parser.sucesso = True
 parser.assembly = ""
 parser.labels = 0
@@ -231,7 +233,6 @@ parser.labels = 0
 fonte = ""
 for linha in sys.stdin:
     fonte += linha
-
 
 parser.parse(fonte)
 

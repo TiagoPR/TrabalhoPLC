@@ -1,10 +1,5 @@
 import re
 import ply.lex as lex
-import sys
-
-# states = [
-#    ('VALUE', 'exclusive')
-# ]
 
 literals = ['+', '-', '*', '/', '=', '(', ')','.','!']
 
@@ -17,6 +12,7 @@ tokens = (
     'INFEQ',
     'SUP',
     'SUPEQ',
+    'DIFF',
     'INPUT',
     'PRINT',
     'INT',
@@ -40,6 +36,8 @@ t_TRUE = r'true'
 t_FALSE = r'false'
 
 t_EQUAL = r'\=\='
+
+t_DIFF = r'\!\='
 
 t_INF = r'\<'
 
@@ -91,9 +89,7 @@ def t_ANY_error(t):
     print('Illegal character: %s', t.value[0])
 
 
-# lexer = lex.lex()
-# lexer = lex.lex(reflags=re.UNICODE)
-lexer = lex.lex(reflags=re.IGNORECASE)
+lexer = lex.lex()
 
 
 
