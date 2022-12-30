@@ -2,8 +2,7 @@ import ply.yacc as yacc
 import sys
 
 from linguagem_lex import tokens
-PUSHI 0 SUP PQQQQQQQQQQQQqq
-TODO ATRIBUIR BOOLEANO
+
 def p_Programa(p):
     "Programa : Vars Funcs Cod"
     parser.assembly = f'START\n{p[1]}{p[3]}STOP\n{p[2]}'
@@ -85,6 +84,10 @@ def p_Linha_atr(p):
     "Linha : atr"
     p[0] = p[1]
 
+def p_linha_func(p):
+    "Linha : ID '(' ')' '.'"
+    p[0] = f'pusha {p[1]}\nCALL\n'
+
 #def p_Linha_empty(p):
 #    "Linha : "
 #    p[0] = f' '
@@ -137,6 +140,7 @@ def p_cond_bool(p):
 
 def p_cond_expr(p):
     "cond : expr"
+    print("oi")
     p[0] = f'{p[1]}pushi 0\nsup'
 
 def p_oprelacao_inf(p):
@@ -199,9 +203,6 @@ def p_fator_NUM(p):
     "fator : NUM"
     p[0] = f"PUSHI {p[1]}\n"
 
-def p_fator_func(p):
-    "fator : ID '(' ')' '.'"
-    p[0] = f'pusha {p[1]}\nCALL\n'
 
 def p_fator_ID(p):
     "fator : ID"
