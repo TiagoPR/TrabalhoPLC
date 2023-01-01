@@ -127,6 +127,10 @@ def p_atr(p):
     "atr : ID '=' expr '.'"
     p[0] = f'{p[3]}storeg {parser.table[p[1]]}\n'
 
+def p_atr_func(p):
+    "atr : ID '=' ID '(' ')' '.'"
+    p[0] = f'pusha {p[3]}\nCALL\nstoreg {parser.table[p[1]]}\n'
+
 def p_bool_true(p):
     "bool : TRUE"
     p[0] = f'PUSHI 1'
