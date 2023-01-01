@@ -199,6 +199,10 @@ def p_termo_div(p):
     "termo : termo '/' fator"
     p[0] = p[1] + p[3] + "DIV\n"
 
+def p_termo_mod(p):
+    "termo : termo '%' fator"
+    p[0] = p[1] + p[3] + "MOD\n"
+
 def p_termo_fator(p):
     "termo : fator"
     p[0] = p[1]

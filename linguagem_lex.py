@@ -1,7 +1,7 @@
 import re
 import ply.lex as lex
 
-literals = ['+', '-', '*', '/', '=', '(', ')','.','!']
+literals = ['+', '-', '*', '/', '=', '(', ')','.','!','%']
 
 tokens = (
     'IF',

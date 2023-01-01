@@ -48,15 +48,17 @@ Rule 42    expr -> expr - termo
 Rule 43    expr -> termo
 Rule 44    termo -> termo * fator
 Rule 45    termo -> termo / fator
-Rule 46    termo -> fator
-Rule 47    fator -> NUM
-Rule 48    fator -> ID
-Rule 49    fator -> ( expr )
+Rule 46    termo -> termo % fator
+Rule 47    termo -> fator
+Rule 48    fator -> NUM
+Rule 49    fator -> ID
+Rule 50    fator -> ( expr )
 
 Terminals, with rules where they appear
 
-(                    : 19 49
-)                    : 19 49
+%                    : 46
+(                    : 19 50
+)                    : 19 50
 *                    : 44
 +                    : 41
 -                    : 42
@@ -70,13 +72,13 @@ ELSE                 : 23
 EQUAL                : 33
 FALSE                : 29
 FRASE                : 5 24
-ID                   : 11 12 14 15 19 24 27 48
+ID                   : 11 12 14 15 19 24 27 49
 IF                   : 23
 INF                  : 32
 INFEQ                : 35
 INPUT                : 24
 INT                  : 14 15
-NUM                  : 47
+NUM                  : 48
 OU                   : 40
 PRINT                : 2
 SUP                  : 36
@@ -106,10 +108,10 @@ atr                  : 18
 bool                 : 30
 cond                 : 21 23 26 39 39 40 40
 corpoescreve         : 2 4
-expr                 : 6 11 15 27 31 38 38 41 42 49
-fator                : 44 45 46
+expr                 : 6 11 15 27 31 38 38 41 42 50
+fator                : 44 45 46 47
 oprelacao            : 38
-termo                : 41 42 43 44 45
+termo                : 41 42 43 44 45 46
 var                  : 8
 
 Parsing method: LALR
@@ -224,10 +226,11 @@ state 5
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     $end            reduce using rule 13 (Cod -> .)
     ID              shift and go to state 11
@@ -328,10 +331,11 @@ state 10
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
   ! shift/reduce conflict for ID resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
@@ -382,34 +386,35 @@ state 11
     (19) Linha -> ID . ( ) .
     (27) atr -> ID . = expr .
     (24) Ler -> ID . = INPUT FRASE .
-    (48) fator -> ID .
+    (49) fator -> ID .
 
   ! shift/reduce conflict for ( resolved as shift
     begin           shift and go to state 33
     (               shift and go to state 34
     =               shift and go to state 35
-    *               reduce using rule 48 (fator -> ID .)
-    /               reduce using rule 48 (fator -> ID .)
-    +               reduce using rule 48 (fator -> ID .)
-    -               reduce using rule 48 (fator -> ID .)
-    INF             reduce using rule 48 (fator -> ID .)
-    EQUAL           reduce using rule 48 (fator -> ID .)
-    DIFF            reduce using rule 48 (fator -> ID .)
-    INFEQ           reduce using rule 48 (fator -> ID .)
-    SUP             reduce using rule 48 (fator -> ID .)
-    SUPEQ           reduce using rule 48 (fator -> ID .)
-    E               reduce using rule 48 (fator -> ID .)
-    OU              reduce using rule 48 (fator -> ID .)
-    ID              reduce using rule 48 (fator -> ID .)
-    PRINT           reduce using rule 48 (fator -> ID .)
-    IF              reduce using rule 48 (fator -> ID .)
-    WHILE           reduce using rule 48 (fator -> ID .)
-    TRUE            reduce using rule 48 (fator -> ID .)
-    FALSE           reduce using rule 48 (fator -> ID .)
-    NUM             reduce using rule 48 (fator -> ID .)
-    $end            reduce using rule 48 (fator -> ID .)
+    *               reduce using rule 49 (fator -> ID .)
+    /               reduce using rule 49 (fator -> ID .)
+    %               reduce using rule 49 (fator -> ID .)
+    +               reduce using rule 49 (fator -> ID .)
+    -               reduce using rule 49 (fator -> ID .)
+    INF             reduce using rule 49 (fator -> ID .)
+    EQUAL           reduce using rule 49 (fator -> ID .)
+    DIFF            reduce using rule 49 (fator -> ID .)
+    INFEQ           reduce using rule 49 (fator -> ID .)
+    SUP             reduce using rule 49 (fator -> ID .)
+    SUPEQ           reduce using rule 49 (fator -> ID .)
+    E               reduce using rule 49 (fator -> ID .)
+    OU              reduce using rule 49 (fator -> ID .)
+    ID              reduce using rule 49 (fator -> ID .)
+    PRINT           reduce using rule 49 (fator -> ID .)
+    IF              reduce using rule 49 (fator -> ID .)
+    WHILE           reduce using rule 49 (fator -> ID .)
+    TRUE            reduce using rule 49 (fator -> ID .)
+    FALSE           reduce using rule 49 (fator -> ID .)
+    NUM             reduce using rule 49 (fator -> ID .)
+    $end            reduce using rule 49 (fator -> ID .)
 
-  ! (               [ reduce using rule 48 (fator -> ID .) ]
+  ! (               [ reduce using rule 49 (fator -> ID .) ]
 
 
 state 12
@@ -487,16 +492,17 @@ state 14
 
 state 15
 
-    (49) fator -> ( . expr )
+    (50) fator -> ( . expr )
     (41) expr -> . expr + termo
     (42) expr -> . expr - termo
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     NUM             shift and go to state 28
     ID              shift and go to state 46
@@ -590,10 +596,11 @@ state 20
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     .               reduce using rule 3 (corpoescreve -> .)
     FRASE           shift and go to state 51
@@ -643,10 +650,11 @@ state 22
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     TRUE            shift and go to state 24
     FALSE           shift and go to state 25
@@ -675,10 +683,11 @@ state 23
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     TRUE            shift and go to state 24
     FALSE           shift and go to state 25
@@ -739,6 +748,7 @@ state 26
     (43) expr -> termo .
     (44) termo -> termo . * fator
     (45) termo -> termo . / fator
+    (46) termo -> termo . % fator
 
     +               reduce using rule 43 (expr -> termo .)
     -               reduce using rule 43 (expr -> termo .)
@@ -768,74 +778,77 @@ state 26
     DO              reduce using rule 43 (expr -> termo .)
     *               shift and go to state 55
     /               shift and go to state 56
+    %               shift and go to state 57
 
 
 state 27
 
-    (46) termo -> fator .
+    (47) termo -> fator .
 
-    *               reduce using rule 46 (termo -> fator .)
-    /               reduce using rule 46 (termo -> fator .)
-    +               reduce using rule 46 (termo -> fator .)
-    -               reduce using rule 46 (termo -> fator .)
-    INF             reduce using rule 46 (termo -> fator .)
-    EQUAL           reduce using rule 46 (termo -> fator .)
-    DIFF            reduce using rule 46 (termo -> fator .)
-    INFEQ           reduce using rule 46 (termo -> fator .)
-    SUP             reduce using rule 46 (termo -> fator .)
-    SUPEQ           reduce using rule 46 (termo -> fator .)
-    E               reduce using rule 46 (termo -> fator .)
-    OU              reduce using rule 46 (termo -> fator .)
-    ID              reduce using rule 46 (termo -> fator .)
-    PRINT           reduce using rule 46 (termo -> fator .)
-    IF              reduce using rule 46 (termo -> fator .)
-    WHILE           reduce using rule 46 (termo -> fator .)
-    TRUE            reduce using rule 46 (termo -> fator .)
-    FALSE           reduce using rule 46 (termo -> fator .)
-    NUM             reduce using rule 46 (termo -> fator .)
-    (               reduce using rule 46 (termo -> fator .)
-    $end            reduce using rule 46 (termo -> fator .)
-    end             reduce using rule 46 (termo -> fator .)
-    ELSE            reduce using rule 46 (termo -> fator .)
-    )               reduce using rule 46 (termo -> fator .)
-    FRASE           reduce using rule 46 (termo -> fator .)
-    .               reduce using rule 46 (termo -> fator .)
-    THEN            reduce using rule 46 (termo -> fator .)
-    DO              reduce using rule 46 (termo -> fator .)
+    *               reduce using rule 47 (termo -> fator .)
+    /               reduce using rule 47 (termo -> fator .)
+    %               reduce using rule 47 (termo -> fator .)
+    +               reduce using rule 47 (termo -> fator .)
+    -               reduce using rule 47 (termo -> fator .)
+    INF             reduce using rule 47 (termo -> fator .)
+    EQUAL           reduce using rule 47 (termo -> fator .)
+    DIFF            reduce using rule 47 (termo -> fator .)
+    INFEQ           reduce using rule 47 (termo -> fator .)
+    SUP             reduce using rule 47 (termo -> fator .)
+    SUPEQ           reduce using rule 47 (termo -> fator .)
+    E               reduce using rule 47 (termo -> fator .)
+    OU              reduce using rule 47 (termo -> fator .)
+    ID              reduce using rule 47 (termo -> fator .)
+    PRINT           reduce using rule 47 (termo -> fator .)
+    IF              reduce using rule 47 (termo -> fator .)
+    WHILE           reduce using rule 47 (termo -> fator .)
+    TRUE            reduce using rule 47 (termo -> fator .)
+    FALSE           reduce using rule 47 (termo -> fator .)
+    NUM             reduce using rule 47 (termo -> fator .)
+    (               reduce using rule 47 (termo -> fator .)
+    $end            reduce using rule 47 (termo -> fator .)
+    end             reduce using rule 47 (termo -> fator .)
+    ELSE            reduce using rule 47 (termo -> fator .)
+    )               reduce using rule 47 (termo -> fator .)
+    FRASE           reduce using rule 47 (termo -> fator .)
+    .               reduce using rule 47 (termo -> fator .)
+    THEN            reduce using rule 47 (termo -> fator .)
+    DO              reduce using rule 47 (termo -> fator .)
 
 
 state 28
 
-    (47) fator -> NUM .
+    (48) fator -> NUM .
 
-    *               reduce using rule 47 (fator -> NUM .)
-    /               reduce using rule 47 (fator -> NUM .)
-    +               reduce using rule 47 (fator -> NUM .)
-    -               reduce using rule 47 (fator -> NUM .)
-    INF             reduce using rule 47 (fator -> NUM .)
-    EQUAL           reduce using rule 47 (fator -> NUM .)
-    DIFF            reduce using rule 47 (fator -> NUM .)
-    INFEQ           reduce using rule 47 (fator -> NUM .)
-    SUP             reduce using rule 47 (fator -> NUM .)
-    SUPEQ           reduce using rule 47 (fator -> NUM .)
-    E               reduce using rule 47 (fator -> NUM .)
-    OU              reduce using rule 47 (fator -> NUM .)
-    ID              reduce using rule 47 (fator -> NUM .)
-    PRINT           reduce using rule 47 (fator -> NUM .)
-    IF              reduce using rule 47 (fator -> NUM .)
-    WHILE           reduce using rule 47 (fator -> NUM .)
-    TRUE            reduce using rule 47 (fator -> NUM .)
-    FALSE           reduce using rule 47 (fator -> NUM .)
-    NUM             reduce using rule 47 (fator -> NUM .)
-    (               reduce using rule 47 (fator -> NUM .)
-    $end            reduce using rule 47 (fator -> NUM .)
-    end             reduce using rule 47 (fator -> NUM .)
-    ELSE            reduce using rule 47 (fator -> NUM .)
-    )               reduce using rule 47 (fator -> NUM .)
-    FRASE           reduce using rule 47 (fator -> NUM .)
-    .               reduce using rule 47 (fator -> NUM .)
-    THEN            reduce using rule 47 (fator -> NUM .)
-    DO              reduce using rule 47 (fator -> NUM .)
+    *               reduce using rule 48 (fator -> NUM .)
+    /               reduce using rule 48 (fator -> NUM .)
+    %               reduce using rule 48 (fator -> NUM .)
+    +               reduce using rule 48 (fator -> NUM .)
+    -               reduce using rule 48 (fator -> NUM .)
+    INF             reduce using rule 48 (fator -> NUM .)
+    EQUAL           reduce using rule 48 (fator -> NUM .)
+    DIFF            reduce using rule 48 (fator -> NUM .)
+    INFEQ           reduce using rule 48 (fator -> NUM .)
+    SUP             reduce using rule 48 (fator -> NUM .)
+    SUPEQ           reduce using rule 48 (fator -> NUM .)
+    E               reduce using rule 48 (fator -> NUM .)
+    OU              reduce using rule 48 (fator -> NUM .)
+    ID              reduce using rule 48 (fator -> NUM .)
+    PRINT           reduce using rule 48 (fator -> NUM .)
+    IF              reduce using rule 48 (fator -> NUM .)
+    WHILE           reduce using rule 48 (fator -> NUM .)
+    TRUE            reduce using rule 48 (fator -> NUM .)
+    FALSE           reduce using rule 48 (fator -> NUM .)
+    NUM             reduce using rule 48 (fator -> NUM .)
+    (               reduce using rule 48 (fator -> NUM .)
+    $end            reduce using rule 48 (fator -> NUM .)
+    end             reduce using rule 48 (fator -> NUM .)
+    ELSE            reduce using rule 48 (fator -> NUM .)
+    )               reduce using rule 48 (fator -> NUM .)
+    FRASE           reduce using rule 48 (fator -> NUM .)
+    .               reduce using rule 48 (fator -> NUM .)
+    THEN            reduce using rule 48 (fator -> NUM .)
+    DO              reduce using rule 48 (fator -> NUM .)
 
 
 state 29
@@ -862,16 +875,17 @@ state 30
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     NUM             shift and go to state 28
     ID              shift and go to state 46
     (               shift and go to state 15
 
-    expr                           shift and go to state 57
+    expr                           shift and go to state 58
     termo                          shift and go to state 26
     fator                          shift and go to state 27
 
@@ -897,35 +911,36 @@ state 32
     (19) Linha -> ID . ( ) .
     (27) atr -> ID . = expr .
     (24) Ler -> ID . = INPUT FRASE .
-    (48) fator -> ID .
+    (49) fator -> ID .
 
   ! shift/reduce conflict for ( resolved as shift
     (               shift and go to state 34
     =               shift and go to state 35
-    *               reduce using rule 48 (fator -> ID .)
-    /               reduce using rule 48 (fator -> ID .)
-    +               reduce using rule 48 (fator -> ID .)
-    -               reduce using rule 48 (fator -> ID .)
-    INF             reduce using rule 48 (fator -> ID .)
-    EQUAL           reduce using rule 48 (fator -> ID .)
-    DIFF            reduce using rule 48 (fator -> ID .)
-    INFEQ           reduce using rule 48 (fator -> ID .)
-    SUP             reduce using rule 48 (fator -> ID .)
-    SUPEQ           reduce using rule 48 (fator -> ID .)
-    E               reduce using rule 48 (fator -> ID .)
-    OU              reduce using rule 48 (fator -> ID .)
-    $end            reduce using rule 48 (fator -> ID .)
-    end             reduce using rule 48 (fator -> ID .)
-    ELSE            reduce using rule 48 (fator -> ID .)
-    ID              reduce using rule 48 (fator -> ID .)
-    PRINT           reduce using rule 48 (fator -> ID .)
-    IF              reduce using rule 48 (fator -> ID .)
-    WHILE           reduce using rule 48 (fator -> ID .)
-    TRUE            reduce using rule 48 (fator -> ID .)
-    FALSE           reduce using rule 48 (fator -> ID .)
-    NUM             reduce using rule 48 (fator -> ID .)
+    *               reduce using rule 49 (fator -> ID .)
+    /               reduce using rule 49 (fator -> ID .)
+    %               reduce using rule 49 (fator -> ID .)
+    +               reduce using rule 49 (fator -> ID .)
+    -               reduce using rule 49 (fator -> ID .)
+    INF             reduce using rule 49 (fator -> ID .)
+    EQUAL           reduce using rule 49 (fator -> ID .)
+    DIFF            reduce using rule 49 (fator -> ID .)
+    INFEQ           reduce using rule 49 (fator -> ID .)
+    SUP             reduce using rule 49 (fator -> ID .)
+    SUPEQ           reduce using rule 49 (fator -> ID .)
+    E               reduce using rule 49 (fator -> ID .)
+    OU              reduce using rule 49 (fator -> ID .)
+    $end            reduce using rule 49 (fator -> ID .)
+    end             reduce using rule 49 (fator -> ID .)
+    ELSE            reduce using rule 49 (fator -> ID .)
+    ID              reduce using rule 49 (fator -> ID .)
+    PRINT           reduce using rule 49 (fator -> ID .)
+    IF              reduce using rule 49 (fator -> ID .)
+    WHILE           reduce using rule 49 (fator -> ID .)
+    TRUE            reduce using rule 49 (fator -> ID .)
+    FALSE           reduce using rule 49 (fator -> ID .)
+    NUM             reduce using rule 49 (fator -> ID .)
 
-  ! (               [ reduce using rule 48 (fator -> ID .) ]
+  ! (               [ reduce using rule 49 (fator -> ID .) ]
 
 
 state 33
@@ -958,10 +973,11 @@ state 33
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     end             reduce using rule 13 (Cod -> .)
     ID              shift and go to state 32
@@ -973,7 +989,7 @@ state 33
     NUM             shift and go to state 28
     (               shift and go to state 15
 
-    Cod                            shift and go to state 58
+    Cod                            shift and go to state 59
     expr                           shift and go to state 12
     Linha                          shift and go to state 10
     Escrever                       shift and go to state 13
@@ -990,7 +1006,7 @@ state 34
 
     (19) Linha -> ID ( . ) .
 
-    )               shift and go to state 59
+    )               shift and go to state 60
 
 
 state 35
@@ -1002,17 +1018,18 @@ state 35
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
-    INPUT           shift and go to state 61
+    INPUT           shift and go to state 62
     NUM             shift and go to state 28
     ID              shift and go to state 46
     (               shift and go to state 15
 
-    expr                           shift and go to state 60
+    expr                           shift and go to state 61
     termo                          shift and go to state 26
     fator                          shift and go to state 27
 
@@ -1024,16 +1041,17 @@ state 36
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     NUM             shift and go to state 28
     ID              shift and go to state 46
     (               shift and go to state 15
 
-    expr                           shift and go to state 62
+    expr                           shift and go to state 63
     termo                          shift and go to state 26
     fator                          shift and go to state 27
 
@@ -1042,16 +1060,17 @@ state 37
     (41) expr -> expr + . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     NUM             shift and go to state 28
     ID              shift and go to state 46
     (               shift and go to state 15
 
-    termo                          shift and go to state 63
+    termo                          shift and go to state 64
     fator                          shift and go to state 27
 
 state 38
@@ -1059,16 +1078,17 @@ state 38
     (42) expr -> expr - . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     NUM             shift and go to state 28
     ID              shift and go to state 46
     (               shift and go to state 15
 
-    termo                          shift and go to state 64
+    termo                          shift and go to state 65
     fator                          shift and go to state 27
 
 state 39
@@ -1127,47 +1147,48 @@ state 44
 
 state 45
 
-    (49) fator -> ( expr . )
+    (50) fator -> ( expr . )
     (41) expr -> expr . + termo
     (42) expr -> expr . - termo
 
-    )               shift and go to state 65
+    )               shift and go to state 66
     +               shift and go to state 37
     -               shift and go to state 38
 
 
 state 46
 
-    (48) fator -> ID .
+    (49) fator -> ID .
 
-    *               reduce using rule 48 (fator -> ID .)
-    /               reduce using rule 48 (fator -> ID .)
-    )               reduce using rule 48 (fator -> ID .)
-    +               reduce using rule 48 (fator -> ID .)
-    -               reduce using rule 48 (fator -> ID .)
-    FRASE           reduce using rule 48 (fator -> ID .)
-    NUM             reduce using rule 48 (fator -> ID .)
-    ID              reduce using rule 48 (fator -> ID .)
-    (               reduce using rule 48 (fator -> ID .)
-    .               reduce using rule 48 (fator -> ID .)
-    INF             reduce using rule 48 (fator -> ID .)
-    EQUAL           reduce using rule 48 (fator -> ID .)
-    DIFF            reduce using rule 48 (fator -> ID .)
-    INFEQ           reduce using rule 48 (fator -> ID .)
-    SUP             reduce using rule 48 (fator -> ID .)
-    SUPEQ           reduce using rule 48 (fator -> ID .)
-    THEN            reduce using rule 48 (fator -> ID .)
-    E               reduce using rule 48 (fator -> ID .)
-    OU              reduce using rule 48 (fator -> ID .)
-    DO              reduce using rule 48 (fator -> ID .)
-    PRINT           reduce using rule 48 (fator -> ID .)
-    IF              reduce using rule 48 (fator -> ID .)
-    WHILE           reduce using rule 48 (fator -> ID .)
-    TRUE            reduce using rule 48 (fator -> ID .)
-    FALSE           reduce using rule 48 (fator -> ID .)
-    $end            reduce using rule 48 (fator -> ID .)
-    end             reduce using rule 48 (fator -> ID .)
-    ELSE            reduce using rule 48 (fator -> ID .)
+    *               reduce using rule 49 (fator -> ID .)
+    /               reduce using rule 49 (fator -> ID .)
+    %               reduce using rule 49 (fator -> ID .)
+    )               reduce using rule 49 (fator -> ID .)
+    +               reduce using rule 49 (fator -> ID .)
+    -               reduce using rule 49 (fator -> ID .)
+    FRASE           reduce using rule 49 (fator -> ID .)
+    NUM             reduce using rule 49 (fator -> ID .)
+    ID              reduce using rule 49 (fator -> ID .)
+    (               reduce using rule 49 (fator -> ID .)
+    .               reduce using rule 49 (fator -> ID .)
+    INF             reduce using rule 49 (fator -> ID .)
+    EQUAL           reduce using rule 49 (fator -> ID .)
+    DIFF            reduce using rule 49 (fator -> ID .)
+    INFEQ           reduce using rule 49 (fator -> ID .)
+    SUP             reduce using rule 49 (fator -> ID .)
+    SUPEQ           reduce using rule 49 (fator -> ID .)
+    THEN            reduce using rule 49 (fator -> ID .)
+    E               reduce using rule 49 (fator -> ID .)
+    OU              reduce using rule 49 (fator -> ID .)
+    DO              reduce using rule 49 (fator -> ID .)
+    PRINT           reduce using rule 49 (fator -> ID .)
+    IF              reduce using rule 49 (fator -> ID .)
+    WHILE           reduce using rule 49 (fator -> ID .)
+    TRUE            reduce using rule 49 (fator -> ID .)
+    FALSE           reduce using rule 49 (fator -> ID .)
+    $end            reduce using rule 49 (fator -> ID .)
+    end             reduce using rule 49 (fator -> ID .)
+    ELSE            reduce using rule 49 (fator -> ID .)
 
 
 state 47
@@ -1185,10 +1206,11 @@ state 47
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     TRUE            shift and go to state 24
     FALSE           shift and go to state 25
@@ -1196,7 +1218,7 @@ state 47
     ID              shift and go to state 46
     (               shift and go to state 15
 
-    cond                           shift and go to state 66
+    cond                           shift and go to state 67
     bool                           shift and go to state 21
     expr                           shift and go to state 12
     termo                          shift and go to state 26
@@ -1217,10 +1239,11 @@ state 48
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     TRUE            shift and go to state 24
     FALSE           shift and go to state 25
@@ -1228,7 +1251,7 @@ state 48
     ID              shift and go to state 46
     (               shift and go to state 15
 
-    cond                           shift and go to state 67
+    cond                           shift and go to state 68
     bool                           shift and go to state 21
     expr                           shift and go to state 12
     termo                          shift and go to state 26
@@ -1238,7 +1261,7 @@ state 49
 
     (2) Escrever -> PRINT corpoescreve . .
 
-    .               shift and go to state 68
+    .               shift and go to state 69
 
 
 state 50
@@ -1253,10 +1276,11 @@ state 50
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     .               reduce using rule 3 (corpoescreve -> .)
     FRASE           shift and go to state 51
@@ -1265,7 +1289,7 @@ state 50
     (               shift and go to state 15
 
     alter                          shift and go to state 50
-    corpoescreve                   shift and go to state 69
+    corpoescreve                   shift and go to state 70
     expr                           shift and go to state 52
     termo                          shift and go to state 26
     fator                          shift and go to state 27
@@ -1302,7 +1326,7 @@ state 53
     (39) cond -> cond . E cond
     (40) cond -> cond . OU cond
 
-    THEN            shift and go to state 70
+    THEN            shift and go to state 71
     E               shift and go to state 47
     OU              shift and go to state 48
 
@@ -1313,7 +1337,7 @@ state 54
     (39) cond -> cond . E cond
     (40) cond -> cond . OU cond
 
-    DO              shift and go to state 71
+    DO              shift and go to state 72
     E               shift and go to state 47
     OU              shift and go to state 48
 
@@ -1321,22 +1345,9 @@ state 54
 state 55
 
     (44) termo -> termo * . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
-
-    NUM             shift and go to state 28
-    ID              shift and go to state 46
-    (               shift and go to state 15
-
-    fator                          shift and go to state 72
-
-state 56
-
-    (45) termo -> termo / . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     NUM             shift and go to state 28
     ID              shift and go to state 46
@@ -1344,51 +1355,77 @@ state 56
 
     fator                          shift and go to state 73
 
+state 56
+
+    (45) termo -> termo / . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
+
+    NUM             shift and go to state 28
+    ID              shift and go to state 46
+    (               shift and go to state 15
+
+    fator                          shift and go to state 74
+
 state 57
+
+    (46) termo -> termo % . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
+
+    NUM             shift and go to state 28
+    ID              shift and go to state 46
+    (               shift and go to state 15
+
+    fator                          shift and go to state 75
+
+state 58
 
     (15) var -> INT ID = expr . .
     (41) expr -> expr . + termo
     (42) expr -> expr . - termo
 
-    .               shift and go to state 74
+    .               shift and go to state 76
     +               shift and go to state 37
     -               shift and go to state 38
 
 
-state 58
+state 59
 
     (11) Func -> ID begin Cod . end return expr .
     (12) Func -> ID begin Cod . end .
 
-    end             shift and go to state 75
-
-
-state 59
-
-    (19) Linha -> ID ( ) . .
-
-    .               shift and go to state 76
+    end             shift and go to state 77
 
 
 state 60
+
+    (19) Linha -> ID ( ) . .
+
+    .               shift and go to state 78
+
+
+state 61
 
     (27) atr -> ID = expr . .
     (41) expr -> expr . + termo
     (42) expr -> expr . - termo
 
-    .               shift and go to state 77
+    .               shift and go to state 79
     +               shift and go to state 37
     -               shift and go to state 38
 
 
-state 61
+state 62
 
     (24) Ler -> ID = INPUT . FRASE .
 
-    FRASE           shift and go to state 78
+    FRASE           shift and go to state 80
 
 
-state 62
+state 63
 
     (38) cond -> expr oprelacao expr .
     (41) expr -> expr . + termo
@@ -1413,11 +1450,12 @@ state 62
     -               shift and go to state 38
 
 
-state 63
+state 64
 
     (41) expr -> expr + termo .
     (44) termo -> termo . * fator
     (45) termo -> termo . / fator
+    (46) termo -> termo . % fator
 
     +               reduce using rule 41 (expr -> expr + termo .)
     -               reduce using rule 41 (expr -> expr + termo .)
@@ -1447,13 +1485,15 @@ state 63
     DO              reduce using rule 41 (expr -> expr + termo .)
     *               shift and go to state 55
     /               shift and go to state 56
+    %               shift and go to state 57
 
 
-state 64
+state 65
 
     (42) expr -> expr - termo .
     (44) termo -> termo . * fator
     (45) termo -> termo . / fator
+    (46) termo -> termo . % fator
 
     +               reduce using rule 42 (expr -> expr - termo .)
     -               reduce using rule 42 (expr -> expr - termo .)
@@ -1483,43 +1523,45 @@ state 64
     DO              reduce using rule 42 (expr -> expr - termo .)
     *               shift and go to state 55
     /               shift and go to state 56
-
-
-state 65
-
-    (49) fator -> ( expr ) .
-
-    *               reduce using rule 49 (fator -> ( expr ) .)
-    /               reduce using rule 49 (fator -> ( expr ) .)
-    +               reduce using rule 49 (fator -> ( expr ) .)
-    -               reduce using rule 49 (fator -> ( expr ) .)
-    INF             reduce using rule 49 (fator -> ( expr ) .)
-    EQUAL           reduce using rule 49 (fator -> ( expr ) .)
-    DIFF            reduce using rule 49 (fator -> ( expr ) .)
-    INFEQ           reduce using rule 49 (fator -> ( expr ) .)
-    SUP             reduce using rule 49 (fator -> ( expr ) .)
-    SUPEQ           reduce using rule 49 (fator -> ( expr ) .)
-    E               reduce using rule 49 (fator -> ( expr ) .)
-    OU              reduce using rule 49 (fator -> ( expr ) .)
-    ID              reduce using rule 49 (fator -> ( expr ) .)
-    PRINT           reduce using rule 49 (fator -> ( expr ) .)
-    IF              reduce using rule 49 (fator -> ( expr ) .)
-    WHILE           reduce using rule 49 (fator -> ( expr ) .)
-    TRUE            reduce using rule 49 (fator -> ( expr ) .)
-    FALSE           reduce using rule 49 (fator -> ( expr ) .)
-    NUM             reduce using rule 49 (fator -> ( expr ) .)
-    (               reduce using rule 49 (fator -> ( expr ) .)
-    $end            reduce using rule 49 (fator -> ( expr ) .)
-    end             reduce using rule 49 (fator -> ( expr ) .)
-    ELSE            reduce using rule 49 (fator -> ( expr ) .)
-    )               reduce using rule 49 (fator -> ( expr ) .)
-    FRASE           reduce using rule 49 (fator -> ( expr ) .)
-    .               reduce using rule 49 (fator -> ( expr ) .)
-    THEN            reduce using rule 49 (fator -> ( expr ) .)
-    DO              reduce using rule 49 (fator -> ( expr ) .)
+    %               shift and go to state 57
 
 
 state 66
+
+    (50) fator -> ( expr ) .
+
+    *               reduce using rule 50 (fator -> ( expr ) .)
+    /               reduce using rule 50 (fator -> ( expr ) .)
+    %               reduce using rule 50 (fator -> ( expr ) .)
+    +               reduce using rule 50 (fator -> ( expr ) .)
+    -               reduce using rule 50 (fator -> ( expr ) .)
+    INF             reduce using rule 50 (fator -> ( expr ) .)
+    EQUAL           reduce using rule 50 (fator -> ( expr ) .)
+    DIFF            reduce using rule 50 (fator -> ( expr ) .)
+    INFEQ           reduce using rule 50 (fator -> ( expr ) .)
+    SUP             reduce using rule 50 (fator -> ( expr ) .)
+    SUPEQ           reduce using rule 50 (fator -> ( expr ) .)
+    E               reduce using rule 50 (fator -> ( expr ) .)
+    OU              reduce using rule 50 (fator -> ( expr ) .)
+    ID              reduce using rule 50 (fator -> ( expr ) .)
+    PRINT           reduce using rule 50 (fator -> ( expr ) .)
+    IF              reduce using rule 50 (fator -> ( expr ) .)
+    WHILE           reduce using rule 50 (fator -> ( expr ) .)
+    TRUE            reduce using rule 50 (fator -> ( expr ) .)
+    FALSE           reduce using rule 50 (fator -> ( expr ) .)
+    NUM             reduce using rule 50 (fator -> ( expr ) .)
+    (               reduce using rule 50 (fator -> ( expr ) .)
+    $end            reduce using rule 50 (fator -> ( expr ) .)
+    end             reduce using rule 50 (fator -> ( expr ) .)
+    ELSE            reduce using rule 50 (fator -> ( expr ) .)
+    )               reduce using rule 50 (fator -> ( expr ) .)
+    FRASE           reduce using rule 50 (fator -> ( expr ) .)
+    .               reduce using rule 50 (fator -> ( expr ) .)
+    THEN            reduce using rule 50 (fator -> ( expr ) .)
+    DO              reduce using rule 50 (fator -> ( expr ) .)
+
+
+state 67
 
     (39) cond -> cond E cond .
     (39) cond -> cond . E cond
@@ -1547,7 +1589,7 @@ state 66
   ! OU              [ reduce using rule 39 (cond -> cond E cond .) ]
 
 
-state 67
+state 68
 
     (40) cond -> cond OU cond .
     (39) cond -> cond . E cond
@@ -1575,7 +1617,7 @@ state 67
   ! OU              [ reduce using rule 40 (cond -> cond OU cond .) ]
 
 
-state 68
+state 69
 
     (2) Escrever -> PRINT corpoescreve . .
 
@@ -1592,14 +1634,14 @@ state 68
     ELSE            reduce using rule 2 (Escrever -> PRINT corpoescreve . .)
 
 
-state 69
+state 70
 
     (4) corpoescreve -> alter corpoescreve .
 
     .               reduce using rule 4 (corpoescreve -> alter corpoescreve .)
 
 
-state 70
+state 71
 
     (23) SE -> IF cond THEN . Cod ELSE Cod
     (13) Cod -> .
@@ -1628,10 +1670,11 @@ state 70
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     ELSE            reduce using rule 13 (Cod -> .)
     ID              shift and go to state 32
@@ -1644,7 +1687,7 @@ state 70
     (               shift and go to state 15
 
     cond                           shift and go to state 17
-    Cod                            shift and go to state 79
+    Cod                            shift and go to state 81
     Linha                          shift and go to state 10
     Escrever                       shift and go to state 13
     atr                            shift and go to state 14
@@ -1656,7 +1699,7 @@ state 70
     termo                          shift and go to state 26
     fator                          shift and go to state 27
 
-state 71
+state 72
 
     (26) Ciclo -> WHILE cond DO . Cod end WHILE .
     (13) Cod -> .
@@ -1685,10 +1728,11 @@ state 71
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     end             reduce using rule 13 (Cod -> .)
     ID              shift and go to state 32
@@ -1701,7 +1745,7 @@ state 71
     (               shift and go to state 15
 
     cond                           shift and go to state 17
-    Cod                            shift and go to state 80
+    Cod                            shift and go to state 82
     Linha                          shift and go to state 10
     Escrever                       shift and go to state 13
     atr                            shift and go to state 14
@@ -1713,12 +1757,13 @@ state 71
     termo                          shift and go to state 26
     fator                          shift and go to state 27
 
-state 72
+state 73
 
     (44) termo -> termo * fator .
 
     *               reduce using rule 44 (termo -> termo * fator .)
     /               reduce using rule 44 (termo -> termo * fator .)
+    %               reduce using rule 44 (termo -> termo * fator .)
     +               reduce using rule 44 (termo -> termo * fator .)
     -               reduce using rule 44 (termo -> termo * fator .)
     INF             reduce using rule 44 (termo -> termo * fator .)
@@ -1747,12 +1792,13 @@ state 72
     DO              reduce using rule 44 (termo -> termo * fator .)
 
 
-state 73
+state 74
 
     (45) termo -> termo / fator .
 
     *               reduce using rule 45 (termo -> termo / fator .)
     /               reduce using rule 45 (termo -> termo / fator .)
+    %               reduce using rule 45 (termo -> termo / fator .)
     +               reduce using rule 45 (termo -> termo / fator .)
     -               reduce using rule 45 (termo -> termo / fator .)
     INF             reduce using rule 45 (termo -> termo / fator .)
@@ -1781,7 +1827,42 @@ state 73
     DO              reduce using rule 45 (termo -> termo / fator .)
 
 
-state 74
+state 75
+
+    (46) termo -> termo % fator .
+
+    *               reduce using rule 46 (termo -> termo % fator .)
+    /               reduce using rule 46 (termo -> termo % fator .)
+    %               reduce using rule 46 (termo -> termo % fator .)
+    +               reduce using rule 46 (termo -> termo % fator .)
+    -               reduce using rule 46 (termo -> termo % fator .)
+    INF             reduce using rule 46 (termo -> termo % fator .)
+    EQUAL           reduce using rule 46 (termo -> termo % fator .)
+    DIFF            reduce using rule 46 (termo -> termo % fator .)
+    INFEQ           reduce using rule 46 (termo -> termo % fator .)
+    SUP             reduce using rule 46 (termo -> termo % fator .)
+    SUPEQ           reduce using rule 46 (termo -> termo % fator .)
+    E               reduce using rule 46 (termo -> termo % fator .)
+    OU              reduce using rule 46 (termo -> termo % fator .)
+    ID              reduce using rule 46 (termo -> termo % fator .)
+    PRINT           reduce using rule 46 (termo -> termo % fator .)
+    IF              reduce using rule 46 (termo -> termo % fator .)
+    WHILE           reduce using rule 46 (termo -> termo % fator .)
+    TRUE            reduce using rule 46 (termo -> termo % fator .)
+    FALSE           reduce using rule 46 (termo -> termo % fator .)
+    NUM             reduce using rule 46 (termo -> termo % fator .)
+    (               reduce using rule 46 (termo -> termo % fator .)
+    $end            reduce using rule 46 (termo -> termo % fator .)
+    end             reduce using rule 46 (termo -> termo % fator .)
+    ELSE            reduce using rule 46 (termo -> termo % fator .)
+    )               reduce using rule 46 (termo -> termo % fator .)
+    FRASE           reduce using rule 46 (termo -> termo % fator .)
+    .               reduce using rule 46 (termo -> termo % fator .)
+    THEN            reduce using rule 46 (termo -> termo % fator .)
+    DO              reduce using rule 46 (termo -> termo % fator .)
+
+
+state 76
 
     (15) var -> INT ID = expr . .
 
@@ -1797,16 +1878,16 @@ state 74
     $end            reduce using rule 15 (var -> INT ID = expr . .)
 
 
-state 75
+state 77
 
     (11) Func -> ID begin Cod end . return expr .
     (12) Func -> ID begin Cod end . .
 
-    return          shift and go to state 81
-    .               shift and go to state 82
+    return          shift and go to state 83
+    .               shift and go to state 84
 
 
-state 76
+state 78
 
     (19) Linha -> ID ( ) . .
 
@@ -1823,7 +1904,7 @@ state 76
     ELSE            reduce using rule 19 (Linha -> ID ( ) . .)
 
 
-state 77
+state 79
 
     (27) atr -> ID = expr . .
 
@@ -1840,28 +1921,28 @@ state 77
     ELSE            reduce using rule 27 (atr -> ID = expr . .)
 
 
-state 78
+state 80
 
     (24) Ler -> ID = INPUT FRASE . .
 
-    .               shift and go to state 83
-
-
-state 79
-
-    (23) SE -> IF cond THEN Cod . ELSE Cod
-
-    ELSE            shift and go to state 84
-
-
-state 80
-
-    (26) Ciclo -> WHILE cond DO Cod . end WHILE .
-
-    end             shift and go to state 85
+    .               shift and go to state 85
 
 
 state 81
+
+    (23) SE -> IF cond THEN Cod . ELSE Cod
+
+    ELSE            shift and go to state 86
+
+
+state 82
+
+    (26) Ciclo -> WHILE cond DO Cod . end WHILE .
+
+    end             shift and go to state 87
+
+
+state 83
 
     (11) Func -> ID begin Cod end return . expr .
     (41) expr -> . expr + termo
@@ -1869,20 +1950,21 @@ state 81
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
     NUM             shift and go to state 28
     ID              shift and go to state 46
     (               shift and go to state 15
 
-    expr                           shift and go to state 86
+    expr                           shift and go to state 88
     termo                          shift and go to state 26
     fator                          shift and go to state 27
 
-state 82
+state 84
 
     (12) Func -> ID begin Cod end . .
 
@@ -1897,7 +1979,7 @@ state 82
     $end            reduce using rule 12 (Func -> ID begin Cod end . .)
 
 
-state 83
+state 85
 
     (24) Ler -> ID = INPUT FRASE . .
 
@@ -1914,7 +1996,7 @@ state 83
     ELSE            reduce using rule 24 (Ler -> ID = INPUT FRASE . .)
 
 
-state 84
+state 86
 
     (23) SE -> IF cond THEN Cod ELSE . Cod
     (13) Cod -> .
@@ -1943,10 +2025,11 @@ state 84
     (43) expr -> . termo
     (44) termo -> . termo * fator
     (45) termo -> . termo / fator
-    (46) termo -> . fator
-    (47) fator -> . NUM
-    (48) fator -> . ID
-    (49) fator -> . ( expr )
+    (46) termo -> . termo % fator
+    (47) termo -> . fator
+    (48) fator -> . NUM
+    (49) fator -> . ID
+    (50) fator -> . ( expr )
 
   ! shift/reduce conflict for ID resolved as shift
   ! shift/reduce conflict for PRINT resolved as shift
@@ -1978,7 +2061,7 @@ state 84
   ! (               [ reduce using rule 13 (Cod -> .) ]
 
     cond                           shift and go to state 17
-    Cod                            shift and go to state 87
+    Cod                            shift and go to state 89
     Linha                          shift and go to state 10
     Escrever                       shift and go to state 13
     atr                            shift and go to state 14
@@ -1990,25 +2073,25 @@ state 84
     termo                          shift and go to state 26
     fator                          shift and go to state 27
 
-state 85
+state 87
 
     (26) Ciclo -> WHILE cond DO Cod end . WHILE .
 
-    WHILE           shift and go to state 88
+    WHILE           shift and go to state 90
 
 
-state 86
+state 88
 
     (11) Func -> ID begin Cod end return expr . .
     (41) expr -> expr . + termo
     (42) expr -> expr . - termo
 
-    .               shift and go to state 89
+    .               shift and go to state 91
     +               shift and go to state 37
     -               shift and go to state 38
 
 
-state 87
+state 89
 
     (23) SE -> IF cond THEN Cod ELSE Cod .
 
@@ -2025,14 +2108,14 @@ state 87
     ELSE            reduce using rule 23 (SE -> IF cond THEN Cod ELSE Cod .)
 
 
-state 88
+state 90
 
     (26) Ciclo -> WHILE cond DO Cod end WHILE . .
 
-    .               shift and go to state 90
+    .               shift and go to state 92
 
 
-state 89
+state 91
 
     (11) Func -> ID begin Cod end return expr . .
 
@@ -2047,7 +2130,7 @@ state 89
     $end            reduce using rule 11 (Func -> ID begin Cod end return expr . .)
 
 
-state 90
+state 92
 
     (26) Ciclo -> WHILE cond DO Cod end WHILE . .
 
@@ -2076,15 +2159,15 @@ WARNING: shift/reduce conflict for NUM in state 10 resolved as shift
 WARNING: shift/reduce conflict for ( in state 10 resolved as shift
 WARNING: shift/reduce conflict for ( in state 11 resolved as shift
 WARNING: shift/reduce conflict for ( in state 32 resolved as shift
-WARNING: shift/reduce conflict for E in state 66 resolved as shift
-WARNING: shift/reduce conflict for OU in state 66 resolved as shift
 WARNING: shift/reduce conflict for E in state 67 resolved as shift
 WARNING: shift/reduce conflict for OU in state 67 resolved as shift
-WARNING: shift/reduce conflict for ID in state 84 resolved as shift
-WARNING: shift/reduce conflict for PRINT in state 84 resolved as shift
-WARNING: shift/reduce conflict for IF in state 84 resolved as shift
-WARNING: shift/reduce conflict for WHILE in state 84 resolved as shift
-WARNING: shift/reduce conflict for TRUE in state 84 resolved as shift
-WARNING: shift/reduce conflict for FALSE in state 84 resolved as shift
-WARNING: shift/reduce conflict for NUM in state 84 resolved as shift
-WARNING: shift/reduce conflict for ( in state 84 resolved as shift
+WARNING: shift/reduce conflict for E in state 68 resolved as shift
+WARNING: shift/reduce conflict for OU in state 68 resolved as shift
+WARNING: shift/reduce conflict for ID in state 86 resolved as shift
+WARNING: shift/reduce conflict for PRINT in state 86 resolved as shift
+WARNING: shift/reduce conflict for IF in state 86 resolved as shift
+WARNING: shift/reduce conflict for WHILE in state 86 resolved as shift
+WARNING: shift/reduce conflict for TRUE in state 86 resolved as shift
+WARNING: shift/reduce conflict for FALSE in state 86 resolved as shift
+WARNING: shift/reduce conflict for NUM in state 86 resolved as shift
+WARNING: shift/reduce conflict for ( in state 86 resolved as shift
