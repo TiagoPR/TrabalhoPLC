@@ -101,14 +101,14 @@ def p_Linha_Se(p):
     p[0] = p[1]
 
 def p_se_else(p):
-    'SE : IF cond THEN Cod ELSE Cod '
-    p[0] = f'{p[2]}JZ l{p.parser.labels}\n{p[4]}JUMP l{p.parser.labels}f\nl{p.parser.labels}: NOP\n{p[6]}l{p.parser.labels}f: NOP\n'
+    'SE : IF cond THEN Cod ELSE Cod end IF "."'
+    p[0] = f'{p[2]}\nJZ then{p.parser.labels}\n{p[4]}JUMP final{p.parser.labels}\nthen{p.parser.labels}:\n{p[6]}final{p.parser.labels}:\n'
     p.parser.labels += 1
 
 #def p_se_then(p):
-   # 'SE : IF cond THEN Cod '
-   # p[0] = f'{p[2]}JZ l{p.parser.labels}\n{p[4]}JUMP l{p.parser.labels}f\nl{p.parser.labels}: NOP\n{p[6]}l{p.parser.labels}f: NOP\n'
-   # p.parser.labels += 1
+#    'SE : IF cond THEN Cod end IF "." '
+#    p[0] = f'{p[2]}JZ fimif{p.parser.labels}\n{p[4]}fimif{p.parser.labels}:\n'
+#    p.parser.labels += 1
 
 def p_ler(p):
     "Ler : ID '=' INPUT FRASE '.'"
@@ -127,9 +127,6 @@ def p_atr(p):
     "atr : ID '=' expr '.'"
     p[0] = f'{p[3]}storeg {parser.table[p[1]]}\n'
 
-def p_atr_func(p):
-    "atr : ID '=' ID '(' ')' '.'"
-    p[0] = f'pusha {p[3]}\nCALL\nstoreg {parser.table[p[1]]}\n'
 
 def p_bool_true(p):
     "bool : TRUE"
@@ -215,6 +212,9 @@ def p_fator_NUM(p):
     "fator : NUM"
     p[0] = f"PUSHI {p[1]}\n"
 
+def p_fator_func(p):
+    "fator : ID '(' ')' "
+    p[0] = f"pusha {p[1]}\nCALL"
 
 def p_fator_ID(p):
     "fator : ID"
