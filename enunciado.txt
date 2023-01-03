@@ -1,0 +1,22 @@
+Pretende-se que comece por definir uma linguagem de programação imperativa simples, a seu gosto.
+Apenas deve ter em consideração que essa linguagem terá de permitir:
+• declarar variáveis atómicas do tipo inteiro, com os quais se podem realizar as habituais operações aritméticas,
+relacionais e lógicas.
+• efetuar instruções algorítmicas básicas como a atribuição do valor de expressões numéricas a variáveis.
+• ler do standard input e escrever no standard output.
+• efetuar instruções de seleção para controlo do fluxo de execução.
+• efetuar instruções de repetição (cíclicas) para controlo do fluxo de execução, permitindo o seu aninhamento.
+Note que deve implementar pelo menos o ciclo while-do, repeat-until ou for-do.
+Adicionalmente deve ainda suportar, à sua escolha, uma das duas funcionalidades seguintes:
+• declarar e manusear variáveis estruturadas do tipo array (a 1 ou 2 dimensões) de inteiros, em relação aos quais
+é apenas permitida a operação de indexação (índice inteiro).
+• definir e invocar subprogramas sem parâmetros mas que possam retornar um resultado do tipo inteiro.
+Como é da praxe neste tipo de linguagens, as variáveis deverão ser declaradas no início do programa e não pode haver
+re-declarações, nem utilizações sem declaração prévia. Se nada for explicitado, o valor da variável após a declaração é
+0 (zero).
+Desenvolva, então, um compilador para essa linguagem com base na GIC criada acima e com recurso aos módulos
+Yacc/ Lex do PLY/Python.
+O compilador deve gerar pseudo-código, Assembly da Máquina Virtual VM.
+Muito Importante:
+Para a entrega do TP deve preparar um conjunto de testes (programas-fonte escritos na sua linguagem) e mostrar o
+código Assembly gerado bem como o programa a correr na máquina virtual VM.
